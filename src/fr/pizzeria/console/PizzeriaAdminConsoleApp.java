@@ -42,7 +42,7 @@ public class PizzeriaAdminConsoleApp {
 				// Affiche la liste des pizzas
 				for (int i = 0; i < tableauPizza.length; i++) {
 					if (tableauPizza[i] != null) {
-						System.out.println(tableauPizza[i].getCode() + "->" + tableauPizza[i].getLibelle() + " (" + tableauPizza[i].getPrix() + " €)");												
+						tableauPizza[i].affichage();												
 					}
 				}
 				

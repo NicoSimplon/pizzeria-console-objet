@@ -53,7 +53,8 @@ public class Pizza {
 		this.prix = prix;
 	}
 	
-	
-	
+	public void affichage() {
+		System.out.println(this.code + "->" + this.libelle + " (" + this.prix + " €)");
+	}
 	
 }
