@@ -33,20 +33,16 @@ public class PizzeriaAdminConsoleApp {
 			String choix = scan.nextLine();
 			
 			if (choix.equals("1")) {
-				typeMenu = menu.create("lister");
-				typeMenu.executeUC(scan, dao);
+				menu.create("lister").executeUC(scan, dao);
 			}
 			else if (choix.equals("2")) {
-				typeMenu = menu.create("ajouter");
-				typeMenu.executeUC(scan, dao);
+				menu.create("ajouter").executeUC(scan, dao);
 			}
 			else if (choix.equals("3")) {
-				typeMenu = menu.create("modifier");
-				typeMenu.executeUC(scan, dao);
+				menu.create("modifier").executeUC(scan, dao);
 			}
 			else if (choix.equals("4")) {
-				typeMenu = menu.create("supprimer");
-				typeMenu.executeUC(scan, dao);
+				menu.create("supprimer").executeUC(scan, dao);
 			}
 			else if (choix.equals("99")) {
 				System.out.println("Aurevoir ☹");
