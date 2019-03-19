@@ -6,11 +6,7 @@ package fr.pizzeria.model;
  * @author Nicolas
  *
  */
-/**
- * @author Nicolas
- *
- */
-public class Pizza {
+public class Pizza{
 	
 	private int id;
 	private String code;
@@ -46,21 +42,11 @@ public class Pizza {
 		this.id = id;
 	}
 	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	public String toString(){
 		return this.code + "->" + this.libelle + " (" + this.prix + " €)";
-	}
-	
-	/**
-	 * Met à jour les données de la pizza
-	 * 
-	 * @param nvCode Nouvelle référence
-	 * @param nvNom	Nouveau nom
-	 * @param nvPrix Nouveau prix
-	 */
-	public void update(String nvCode, String nvNom, double nvPrix) {
-		this.setCode(nvCode);
-		this.setLibelle(nvNom);
-		this.setPrix(nvPrix);
 	}
 
 	/**
