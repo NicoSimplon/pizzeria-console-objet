@@ -25,7 +25,6 @@ public class PizzeriaAdminConsoleApp {
 	public static void main(String[] args) {
 		
 		MenuFactory menu = new MenuFactory();
-		MenuService typeMenu;
 		
 		while (true) {
 			
