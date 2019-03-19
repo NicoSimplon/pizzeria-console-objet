@@ -5,6 +5,9 @@ import fr.pizzeria.model.Pizza;
 
 public class PizzeriaAdminConsoleApp {
 	
+	// Instance unique du scanner
+	public static Scanner scan = new Scanner(System.in);
+
 	// Affichage du menu
 	public static void pizzaMenu() {
 		System.out.println("***** Pizzeria Administration *****");
@@ -30,9 +33,9 @@ public class PizzeriaAdminConsoleApp {
 		};
 
 		// Intanciation de la classe Scanner
-		Scanner scan = new Scanner(System.in);
 		
 		while (true) {
+			// Appel du menu et persistance du choix de l'utilisateur
 			PizzeriaAdminConsoleApp.pizzaMenu();
 			String choix = scan.nextLine();
 			
@@ -42,7 +45,7 @@ public class PizzeriaAdminConsoleApp {
 				// Affiche la liste des pizzas
 				for (int i = 0; i < tableauPizza.length; i++) {
 					if (tableauPizza[i] != null) {
-						tableauPizza[i].affichage();												
+						System.out.println(tableauPizza[i].toString());												
 					}
 				}
 				
@@ -103,9 +106,7 @@ public class PizzeriaAdminConsoleApp {
 				// Modifie les infos de la pizza dans le tableau
 				for (int i = 0; i < tableauPizza.length; i++) {
 					if (tableauPizza[i].getCode().equals(codePizz)) {
-						tableauPizza[i].setCode(newCodePizz);
-						tableauPizza[i].setLibelle(newNomPizz);
-						tableauPizza[i].setPrix(prix2);
+						tableauPizza[i].update(newCodePizz, newNomPizz, prix2);
 					}
 				}
 				

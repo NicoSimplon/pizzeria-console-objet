@@ -1,5 +1,15 @@
 package fr.pizzeria.model;
 
+/**
+ * Classe représentatnt une pizza
+ * 
+ * @author Nicolas
+ *
+ */
+/**
+ * @author Nicolas
+ *
+ */
 public class Pizza {
 	
 	private int id;
@@ -8,6 +18,13 @@ public class Pizza {
 	private double prix;
 	private static int compteur;
 	
+	/**
+	 * Constructeur avec compteur
+	 * 
+	 * @param code Référence de la pizza
+	 * @param libelle Nom de la pizza
+	 * @param prix Prix de la pizza
+	 */
 	public Pizza (String code, String libelle, double prix) {
 		this.code = code;
 		this.libelle = libelle;
@@ -16,45 +33,90 @@ public class Pizza {
 		this.id = Pizza.compteur;
 	}
 	
+	/**
+	 * Constructeur avec un id renseigné à la création
+	 * 
+	 * @param id Identifiant de la pizza
+	 * @param code Référence de la pizza
+	 * @param libelle Nom de la pizza
+	 * @param prix Prix de la pizza
+	 */
 	public Pizza (int id, String code, String libelle, double prix) {
 		this(code, libelle, prix);
 		this.id = id;
 	}
+	
+	public String toString(){
+		return this.code + "->" + this.libelle + " (" + this.prix + " €)";
+	}
+	
+	/**
+	 * Met à jour les données de la pizza
+	 * 
+	 * @param nvCode Nouvelle référence
+	 * @param nvNom	Nouveau nom
+	 * @param nvPrix Nouveau prix
+	 */
+	public void update(String nvCode, String nvNom, double nvPrix) {
+		this.setCode(nvCode);
+		this.setLibelle(nvNom);
+		this.setPrix(nvPrix);
+	}
 
+	/**
+	 * @return int Retourne le paramètre id
+	 */
 	public int getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	/**
+	 * @param id Identifiant de la pizza
+	 */
+	private void setId(int id) {
 		this.id = id;
 	}
 
+	/**
+	 * @return String Retourne l'id de la pizza
+	 */
 	public String getCode() {
 		return this.code;
 	}
 
-	public void setCode(String code) {
+	/**
+	 * @param code Référence de la pizza
+	 */
+	private void setCode(String code) {
 		this.code = code;
 	}
 
+	/**
+	 * @return String Retourne le nom de la pizza
+	 */
 	public String getLibelle() {
 		return libelle;
 	}
 
-	public void setLibelle(String libelle) {
+	/**
+	 * @param libelle Nom de la pizza
+	 */
+	private void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
 
+	/**
+	 * @return double Retourne le prix de la pizza
+	 */
 	public double getPrix() {
 		return prix;
 	}
 
-	public void setPrix(double prix) {
+	/**
+	 * @param prix Prix de la pizza
+	 */
+	private void setPrix(double prix) {
 		this.prix = prix;
-	}
-	
-	public void affichage() {
-		System.out.println(this.code + "->" + this.libelle + " (" + this.prix + " €)");
 	}
 	
 }
