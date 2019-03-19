@@ -24,26 +24,29 @@ public class PizzeriaAdminConsoleApp {
 
 	public static void main(String[] args) {
 		
+		MenuFactory menu = new MenuFactory();
+		MenuService typeMenu;
+		
 		while (true) {
 			
 			PizzeriaAdminConsoleApp.pizzaMenu();
 			String choix = scan.nextLine();
 			
 			if (choix.equals("1")) {
-				ListerPizzasService menu = new ListerPizzasService();
-				menu.executeUC(scan, dao);
+				typeMenu = menu.create("lister");
+				typeMenu.executeUC(scan, dao);
 			}
 			else if (choix.equals("2")) {
-				AjouterPizzaService menu = new AjouterPizzaService();
-				menu.executeUC(scan, dao);
+				typeMenu = menu.create("ajouter");
+				typeMenu.executeUC(scan, dao);
 			}
 			else if (choix.equals("3")) {
-				ModifierPizzaService menu = new ModifierPizzaService();
-				menu.executeUC(scan, dao);
+				typeMenu = menu.create("modifier");
+				typeMenu.executeUC(scan, dao);
 			}
 			else if (choix.equals("4")) {
-				SupprimerPizzaService menu = new SupprimerPizzaService();
-				menu.executeUC(scan, dao);
+				typeMenu = menu.create("supprimer");
+				typeMenu.executeUC(scan, dao);
 			}
 			else if (choix.equals("99")) {
 				System.out.println("Aurevoir ☹");

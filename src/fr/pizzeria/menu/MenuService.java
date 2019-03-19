@@ -16,6 +16,6 @@ public abstract class MenuService {
 	 * 
 	 * @param scanner Objet scanner permettant de gérer les intéractions avec l'utilisateur
 	 */
-	abstract void executeUC(Scanner scanner, PizzaMemDao dao);
+	public abstract void executeUC(Scanner scanner, PizzaMemDao dao);
 	
 }
