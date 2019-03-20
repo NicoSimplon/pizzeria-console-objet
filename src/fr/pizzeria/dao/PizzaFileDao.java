@@ -1,23 +1,40 @@
 package fr.pizzeria.dao;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import fr.pizzeria.model.Pizza;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.PrintWriter;
-
 /**
- * Système de CRUD avec écriture dans un fichier
+ * Système de CRUD
  * 
  * @author Nicolas
  *
  */
 public class PizzaFileDao implements IPizzaDao{
-
+	
+	private Pizza[] tableauPizza;
+	private GestionFichier gestionFichier;
+	
+	public PizzaFileDao() {
+		initialisation();
+		gestionFichier = new GestionFichier ();
+		lecture ();
+	}
+	
+	public void initialisation ()
+	{
+		this.tableauPizza = new Pizza[] {
+			new Pizza(0, "PEP", "Pépéroni", 12.50),
+			new Pizza(1, "MAR", "Margherita", 14.00),
+			new Pizza(2, "REIN", "La Reine", 11.50),
+			new Pizza(3, "FRO", "Les 4 fromages", 12.00),
+			new Pizza(4, "CAN", "La canibale", 12.50),
+			new Pizza(5, "SAV", "La savoyarde", 13.00),
+			new Pizza(6, "ORI", "L'orientale", 13.50),
+			new Pizza(7, "IND", "L'indienne", 14.00)
+		};
+	}
 
 	@Override
 	public Pizza[] findAllPizzas() {
@@ -53,6 +70,8 @@ public class PizzaFileDao implements IPizzaDao{
 			
 		}
 		
+		ecriture();
+		
 	}
 
 	@Override
@@ -64,6 +83,8 @@ public class PizzaFileDao implements IPizzaDao{
 			}
 		}
 		
+		ecriture();
+		
 	}
 
 	@Override
@@ -74,6 +95,8 @@ public class PizzaFileDao implements IPizzaDao{
 				this.tableauPizza[i] = null;
 			}
 		}
+		
+		ecriture();
 		
 	}
 
@@ -103,4 +126,33 @@ public class PizzaFileDao implements IPizzaDao{
 		return exist;
 	}
 
+	/**
+	 * Ecrit dans un fichier .txt les données des pizzas
+	 */
+	public void ecriture () {
+		
+		List <String> listString = new ArrayList<String> ();
+		
+		for (Pizza pizza : tableauPizza)
+			if (pizza != null)
+				listString.add(pizza.toSave());
+		
+		gestionFichier.ecriture(listString);
+	}
+	
+	/**
+	 * Lis les données des pizzas dans un fichier .txt
+	 */
+	public void lecture () {
+		
+		List <String> listString = gestionFichier.lecture();
+		
+		for (String s : listString)
+		{
+			String [] pizza = s.split(",");
+			tableauPizza[Integer.parseInt(pizza[0])] = new Pizza (Integer.parseInt(pizza[0]), pizza[1], pizza[2], Double.parseDouble(pizza[3]));
+		}
+			
+	}
+	
 }

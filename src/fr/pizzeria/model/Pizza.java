@@ -48,6 +48,16 @@ public class Pizza{
 	public String toString(){
 		return this.code + "->" + this.libelle + " (" + this.prix + " €)";
 	}
+	
+	/**
+	 * Met en forme les données relatives aux pizzas en vue de leur écriture dans un fichier .txt
+	 * 
+	 * @return String 
+	 */
+	public String toSave ()
+	{
+		return (id + "," + code + "," + libelle + "," + prix);
+	}
 
 	/**
 	 * @return int Retourne le paramètre id
