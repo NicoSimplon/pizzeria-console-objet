@@ -1,4 +1,4 @@
-package fr.pizzeria.Exception;
+package fr.pizzeria.exception;
 
 /**
  * Exception de type Runtime pour la gestion de fichiers .txt

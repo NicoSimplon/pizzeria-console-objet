@@ -1,13 +1,15 @@
 package fr.pizzeria.menu;
 
 import java.util.Scanner;
+
+import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaService extends MenuService {
 
 	@Override
-	public void executeUC(Scanner scanner, PizzaMemDao dao) {
+	public void executeUC(Scanner scanner, IPizzaDao dao) {
 		
 		System.out.println("Ajout d’une nouvelle pizza");
 		System.out.println("Veuillez saisir le code :");

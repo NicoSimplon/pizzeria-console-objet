@@ -11,7 +11,7 @@ import fr.pizzeria.model.Pizza;
  * @author Nicolas
  *
  */
-public class PizzaFileDao implements IPizzaDao{
+public class PizzaFileDao implements IPizzaDao {
 	
 	private Pizza[] tableauPizza;
 	private GestionFichier gestionFichier;
