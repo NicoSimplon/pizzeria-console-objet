@@ -1,5 +1,9 @@
 package fr.pizzeria.model;
 
+import java.lang.reflect.Field;
+
+import fr.pizzeria.utils.*;
+
 /**
  * Classe représentatnt une pizza
  * 
@@ -9,10 +13,19 @@ package fr.pizzeria.model;
 public class Pizza {
 
 	private int id;
+
+	@ToString(upperCase = true)
 	private String code;
+
+	@ToString(separateur = " -> ", upperCase = true)
 	private String libelle;
+
+	@ToString(separateur = " - ")
 	private double prix;
+
 	private static int compteur;
+
+	@ToString(separateur = " - ")
 	private CategoriePizza categorie;
 
 	/**
@@ -56,8 +69,39 @@ public class Pizza {
 	 * 
 	 * @see java.lang.Object#toString()
 	 */
+	@Override
 	public String toString() {
-		return this.code + "->" + this.libelle + " (" + this.prix + " €)" + " catégorie: " + this.categorie;
+
+		// return this.code + "->" + this.libelle + " (" + this.prix + " €)" + "
+		// catégorie: " + this.categorie;
+
+		Class<? extends Pizza> classe = getClass();
+		Field[] fields = classe.getDeclaredFields();
+		String retour = "";
+
+		for (Field f : fields) {
+			if (f.isAnnotationPresent(ToString.class)) {
+				try {
+					ToString annotation = f.getAnnotation(ToString.class);
+					boolean uppercase = annotation.upperCase();
+					String separateur = annotation.separateur();
+
+					retour += separateur;
+
+					if (uppercase == true)
+						retour += f.get(this).toString().toUpperCase();
+					else
+						retour += f.get(this);
+
+				} catch (IllegalArgumentException e) {
+					e.printStackTrace();
+				} catch (IllegalAccessException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+
+		return retour;
 	}
 
 	@Override
@@ -120,6 +164,7 @@ public class Pizza {
 	 * @param id
 	 *            Identifiant de la pizza
 	 */
+	@SuppressWarnings("unused")
 	private void setId(int id) {
 		this.id = id;
 	}
@@ -135,6 +180,7 @@ public class Pizza {
 	 * @param code
 	 *            Référence de la pizza
 	 */
+	@SuppressWarnings("unused")
 	private void setCode(String code) {
 		this.code = code;
 	}
@@ -150,6 +196,7 @@ public class Pizza {
 	 * @param libelle
 	 *            Nom de la pizza
 	 */
+	@SuppressWarnings("unused")
 	private void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
@@ -165,6 +212,7 @@ public class Pizza {
 	 * @param prix
 	 *            Prix de la pizza
 	 */
+	@SuppressWarnings("unused")
 	private void setPrix(double prix) {
 		this.prix = prix;
 	}

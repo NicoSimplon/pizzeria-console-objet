@@ -10,4 +10,8 @@ import java.lang.annotation.Target;
 @Target(FIELD)
 public @interface ToString {
 
+	String separateur() default "";
+
+	boolean upperCase() default false;
+
 }
