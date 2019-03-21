@@ -1,5 +1,6 @@
 package fr.pizzeria.menu;
 
+import java.util.List;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
@@ -13,12 +14,12 @@ public class ListerPizzasService extends MenuService {
 		
 		System.out.println("Liste des pizzas");
 
-		Pizza[] tableauPizza = dao.findAllPizzas();
+		List<Pizza> tableauPizza = dao.findAllPizzas();
 		
-		for (int i = 0; i < tableauPizza.length; i++) {
-			if (tableauPizza[i] != null) {
-				System.out.println(tableauPizza[i]);												
-			}
+		for (int i = 0; i < tableauPizza.size(); i++) {
+
+			System.out.println(tableauPizza.get(i));												
+			
 		}
 		
 	}

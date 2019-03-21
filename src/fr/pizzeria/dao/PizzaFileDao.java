@@ -21,7 +21,7 @@ public class PizzaFileDao implements IPizzaDao {
 		this.tableauPizza = new ArrayList<>();
 
 		// Données Initiale (A commenter après l'initialisation du fichier .txt)
-		// initialisation();
+		initialisation();
 
 		// Initialisation du fichier save.txt
 		gestionFichier = new GestionFichier();
@@ -129,12 +129,14 @@ public class PizzaFileDao implements IPizzaDao {
 
 		List<String> listString = gestionFichier.lecture();
 
+		int max = 0;
+		
 		for (String s : listString) {
 			String[] pizza = s.split(",");
-			this.tableauPizza.add(Integer.parseInt(pizza[0]),
-					new Pizza(Integer.parseInt(pizza[0]), pizza[1], pizza[2], Double.parseDouble(pizza[3])));
+			max = Integer.parseInt(pizza[0]);
+			this.tableauPizza.add(new Pizza(Integer.parseInt(pizza[0]), pizza[1], pizza[2], Double.parseDouble(pizza[3])));
 		}
-
+		Pizza.setCompteur(max);
 	}
 
 }

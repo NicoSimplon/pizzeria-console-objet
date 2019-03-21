@@ -42,6 +42,14 @@ public class Pizza{
 		this.id = id;
 	}
 	
+	public static int getCompteur() {
+		return compteur;
+	}
+
+	public static void setCompteur(int compteur) {
+		Pizza.compteur = compteur;
+	}
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
