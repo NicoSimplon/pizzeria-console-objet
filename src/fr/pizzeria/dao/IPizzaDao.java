@@ -1,5 +1,7 @@
 package fr.pizzeria.dao;
 
+import java.util.List;
+
 import fr.pizzeria.model.Pizza;
 
 /**
@@ -13,7 +15,7 @@ public interface IPizzaDao {
 	/**
 	 * @return Retourne un tableau contenant tous les objets pizzas existants
 	 */
-	Pizza[] findAllPizzas();
+	List<Pizza> findAllPizzas();
 	
 	/**
 	 * Ajoute une nouvelle pizza
