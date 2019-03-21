@@ -21,7 +21,7 @@ public class PizzaFileDao implements IPizzaDao {
 		this.tableauPizza = new ArrayList<>();
 
 		// Données Initiale (A commenter après l'initialisation du fichier .txt)
-		initialisation();
+		//initialisation();
 
 		// Initialisation du fichier save.txt
 		gestionFichier = new GestionFichier();

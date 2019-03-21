@@ -1,18 +1,17 @@
 package fr.pizzeria.console;
 
 import java.util.Scanner;
-
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaFileDao;
-import fr.pizzeria.dao.PizzaMemDao;
+import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.menu.*;
 
 public class PizzeriaAdminConsoleApp {
-	
+
 	// Instance unique du scanner
 	public static Scanner scan = new Scanner(System.in);
 	// Instance du DAO
-	//public static PizzaMemDao dao = new PizzaMemDao();
+	// public static PizzaMemDao dao = new PizzaMemDao();
 	public static IPizzaDao dao = new PizzaFileDao();
 
 	// Affichage du menu
@@ -35,22 +34,28 @@ public class PizzeriaAdminConsoleApp {
 			PizzeriaAdminConsoleApp.pizzaMenu();
 			String choix = scan.nextLine();
 			
-			if (choix.equals("1")) {
-				menu.create("lister").executeUC(scan, dao);
-			}
-			else if (choix.equals("2")) {
-				menu.create("ajouter").executeUC(scan, dao);
-			}
-			else if (choix.equals("3")) {
-				menu.create("modifier").executeUC(scan, dao);
-			}
-			else if (choix.equals("4")) {
-				menu.create("supprimer").executeUC(scan, dao);
-			}
-			else if (choix.equals("99")) {
-				System.out.println("Aurevoir ☹");
-				scan.close();
-				break;
+			try {
+				if (choix.equals("1")) {
+					menu.create("lister").executeUC(scan, dao);
+				}
+				else if (choix.equals("2")) {
+					menu.create("ajouter").executeUC(scan, dao);
+				}
+				else if (choix.equals("3")) {
+					menu.create("modifier").executeUC(scan, dao);
+				}
+				else if (choix.equals("4")) {
+					menu.create("supprimer").executeUC(scan, dao);
+				}
+				else if (choix.equals("99")) {
+					System.out.println("Aurevoir ☹");
+					scan.close();
+					break;
+				}
+			} catch (StockageException e) {
+				
+				e.getStackTrace();
+
 			}
 			
 		}
