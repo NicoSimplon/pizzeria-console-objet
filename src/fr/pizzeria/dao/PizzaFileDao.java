@@ -17,7 +17,8 @@ public class PizzaFileDao implements IPizzaDao {
 	private GestionFichier gestionFichier;
 	
 	public PizzaFileDao() {
-		initialisation();
+		this.tableauPizza = new Pizza[10];
+		//initialisation();
 		gestionFichier = new GestionFichier ();
 		lecture ();
 	}
