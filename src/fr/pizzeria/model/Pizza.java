@@ -13,6 +13,7 @@ public class Pizza {
 	private String libelle;
 	private double prix;
 	private static int compteur;
+	private CategoriePizza categorie;
 
 	/**
 	 * Constructeur avec compteur
@@ -24,10 +25,11 @@ public class Pizza {
 	 * @param prix
 	 *            Prix de la pizza
 	 */
-	public Pizza(String code, String libelle, double prix) {
+	public Pizza(String code, String libelle, double prix, CategoriePizza categorie) {
 		this.code = code;
 		this.libelle = libelle;
 		this.prix = prix;
+		this.categorie = categorie;
 		Pizza.compteur += 1;
 		this.id = Pizza.compteur;
 	}
@@ -44,8 +46,8 @@ public class Pizza {
 	 * @param prix
 	 *            Prix de la pizza
 	 */
-	public Pizza(int id, String code, String libelle, double prix) {
-		this(code, libelle, prix);
+	public Pizza(int id, String code, String libelle, double prix, CategoriePizza categorie) {
+		this(code, libelle, prix, categorie);
 		this.id = id;
 	}
 
@@ -55,7 +57,7 @@ public class Pizza {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return this.code + "->" + this.libelle + " (" + this.prix + " €)";
+		return this.code + "->" + this.libelle + " (" + this.prix + " €)" + " catégorie: " + this.categorie;
 	}
 
 	@Override
@@ -104,7 +106,7 @@ public class Pizza {
 	 * @return String
 	 */
 	public String toSave() {
-		return (id + "," + code + "," + libelle + "," + prix);
+		return (id + "," + code + "," + libelle + "," + prix + "," + categorie);
 	}
 
 	/**
@@ -179,6 +181,14 @@ public class Pizza {
 	 */
 	public static void setCompteur(int compteur) {
 		Pizza.compteur = compteur;
+	}
+
+	public CategoriePizza getCategorie() {
+		return categorie;
+	}
+
+	public void setCategorie(CategoriePizza categorie) {
+		this.categorie = categorie;
 	}
 
 }

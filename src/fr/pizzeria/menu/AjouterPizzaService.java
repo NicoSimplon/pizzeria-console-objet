@@ -5,6 +5,8 @@ import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.StockageException;
+import fr.pizzeria.exception.UpdatePizzaException;
+import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class AjouterPizzaService extends MenuService {
@@ -22,6 +24,18 @@ public class AjouterPizzaService extends MenuService {
 			System.out.println("Veuillez saisir le prix :");
 			String prix = scanner.nextLine();
 			double convertPrix = Double.parseDouble(prix);
+			System.out.println("Veuillez choisir la catégorie (Viande, Poisson ou Sans Viande) :");
+			String type = scanner.nextLine();
+			CategoriePizza categorie = null;
+			CategoriePizza[] cate = CategoriePizza.values();
+			boolean cateBool = false;
+			
+			for (CategoriePizza s : cate) {
+				if (s.getType().equals(type)){
+					cateBool = true;
+					categorie = s;
+				} 
+			} 
 			
 			if(convertPrix < 0){
 				throw new SavePizzaException("Vous ne pouvez pas fixer un prix négatif");
@@ -29,9 +43,11 @@ public class AjouterPizzaService extends MenuService {
 				throw new SavePizzaException("Le code doit contenir au moins 3 caractères");
 			} else if (nom.length() < 5) {
 				throw new SavePizzaException("Le nom doit contenir au moins 5 caractères");
+			} else if (cateBool == false) {
+				throw new UpdatePizzaException("Vous avez rentré un mauvais nom de catégorie");
 			}
 
-			dao.saveNewPizza(new Pizza(code, nom, convertPrix));
+			dao.saveNewPizza(new Pizza(code, nom, convertPrix, categorie));
 
 		} catch (SavePizzaException e) {
 			e.printStackTrace();
