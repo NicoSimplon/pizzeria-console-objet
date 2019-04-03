@@ -21,7 +21,7 @@ public class GestionFichier {
 				
 		try {
 				
-			this.fichier = new File("C:\\TEMP\\workspace\\pizzeria-console-objet\\save.txt");
+			this.fichier = new File("C:\\TEMP\\workspace\\pizzeria-console-objet\\src\\main\\java\\save.txt");
 				
 			if (fichier.exists () == false) {
 				fichier.createNewFile ();					
