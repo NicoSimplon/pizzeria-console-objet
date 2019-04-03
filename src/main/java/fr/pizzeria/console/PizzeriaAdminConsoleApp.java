@@ -1,10 +1,12 @@
 package fr.pizzeria.console;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaBddDao;
 import fr.pizzeria.dao.PizzaFileDao;
 import fr.pizzeria.dao.PizzaMemDao;
+import fr.pizzeria.exception.DataAccessException;
 import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.menu.*;
 
@@ -29,7 +31,7 @@ public class PizzeriaAdminConsoleApp {
 		System.out.println("99. Sortir");
 	}
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws SQLException, StockageException
 	{
 		
 		MenuFactory menu = new MenuFactory();
@@ -61,10 +63,15 @@ public class PizzeriaAdminConsoleApp {
 					break;
 				}
 			} 
+			catch (StockageException|DataAccessException e) {
+				
+				System.out.println(e.getMessage());
+
+			}
 			catch (Exception e) {
 				
 				e.printStackTrace();
-
+				
 			}
 			
 		}

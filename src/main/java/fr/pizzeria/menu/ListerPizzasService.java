@@ -1,15 +1,18 @@
 package fr.pizzeria.menu;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.model.Pizza;
 
-public class ListerPizzasService extends MenuService {
+public class ListerPizzasService extends MenuService  {
 
 	@Override
-	public void executeUC(Scanner scanner, IPizzaDao dao) {
+	public void executeUC(Scanner scanner, IPizzaDao dao) throws StockageException, SQLException 
+	{
 		
 		System.out.println("Liste des pizzas :");
 		System.out.println("------------------");
