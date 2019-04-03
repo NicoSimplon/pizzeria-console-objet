@@ -11,6 +11,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import fr.pizzeria.exception.DataAccessException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -61,7 +62,7 @@ public class PizzaBddDao implements IPizzaDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			throw new DataAccessException ("La connexion à la base de données ne s'est pas effectuée correctement", e);
 
 		}
 	}
@@ -77,7 +78,7 @@ public class PizzaBddDao implements IPizzaDao {
 
 		} catch (SQLException e) {
 
-			e.printStackTrace();
+			throw new DataAccessException ("La clôture de la connexion à la base de données ne s'est pas déroulée correctement", e);
 
 		}
 	}
@@ -114,11 +115,17 @@ public class PizzaBddDao implements IPizzaDao {
 
 			rs.close();
 
+		} 
+		catch (SQLException e) {
+			
+
+			throw new DataAccessException ("Une erreur est survenue durant la recherche de la liste des pizzas", e);
+			
+		} 
+		finally {
+			
 			closeConnexion();
-
-		} catch (SQLException e) {
-
-			System.out.println(e.getMessage());
+			
 		}
 
 		return tabPizz;
@@ -143,12 +150,16 @@ public class PizzaBddDao implements IPizzaDao {
 			st.setString(4, pizza.getCategorie().getType());
 			st.executeUpdate();
 
+		}
+		catch (SQLException e) {
+
+			throw new DataAccessException ("L'ajout de la nouvelle pizza ne s'est pas déroulé correctement", e);
+
+		}
+		finally {
+			
 			closeConnexion();
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
+			
 		}
 
 	}
@@ -173,12 +184,16 @@ public class PizzaBddDao implements IPizzaDao {
 			st.setString(5, codePizza);
 			st.executeUpdate();
 
+		}
+		catch (SQLException e) {
+
+			throw new DataAccessException ("La modification de la pizza demandée ne s'est pas déroulée correctement", e);
+
+		}
+		finally {
+			
 			closeConnexion();
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
+			
 		}
 
 	}
@@ -198,12 +213,16 @@ public class PizzaBddDao implements IPizzaDao {
 			st.setString(1, codePizza);
 			st.executeUpdate();
 
+		}
+		catch (SQLException e) {
+
+			throw new DataAccessException ("La suppression de la pizza demandée ne s'est pas déroulée correctement", e);
+
+		}
+		finally {
+			
 			closeConnexion();
-
-		} catch (SQLException e) {
-
-			e.printStackTrace();
-
+			
 		}
 
 	}
@@ -234,17 +253,20 @@ public class PizzaBddDao implements IPizzaDao {
 			Pizza piz = new Pizza(id, code, libelle, prix, categoriePizza);
 
 			rs.close();
-			closeConnexion();
 
 			return piz;
 
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 
-			e.printStackTrace();
+			throw new DataAccessException ("Une erreur est survenue durant la recherche de votre pizza", e);
 
 		}
-
-		return null;
+		finally {
+			
+			closeConnexion();
+			
+		}
 	}
 
 	/**
@@ -263,18 +285,23 @@ public class PizzaBddDao implements IPizzaDao {
 			ResultSet rs = st.executeQuery();
 
 			rs.close();
-			closeConnexion();
 
-			if (rs != null) {
+			if (rs.getFetchSize() > 0) {
 
 				return true;
 
 			}
 
-		} catch (SQLException e) {
+		} 
+		catch (SQLException e) {
 
-			e.printStackTrace();
+			throw new DataAccessException ("Une erreur est survenue durant la recherche de votre pizza", e);
 
+		}
+		finally {
+			
+			closeConnexion();
+			
 		}
 
 		return false;

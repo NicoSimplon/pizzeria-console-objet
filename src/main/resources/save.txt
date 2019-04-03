@@ -6,3 +6,5 @@
 5,SAV,La savoyarde,13.0,Viande
 6,ORI,L'orientale,13.5,Viande
 7,IND,L'indienne,14.0,Viande
+8,AZE,Azénor,15.0,Viande
+9,AZF,SpecialAZF,2.0,Sans Viande

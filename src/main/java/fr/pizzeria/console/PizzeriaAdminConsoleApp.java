@@ -1,6 +1,5 @@
 package fr.pizzeria.console;
 
-import java.sql.SQLException;
 import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaBddDao;
@@ -13,10 +12,11 @@ public class PizzeriaAdminConsoleApp {
 
 	// Instance unique du scanner
 	public static Scanner scan = new Scanner(System.in);
+	
 	// Instance du DAO
-	// public static IPizzaDao dao = new PizzaMemDao();
+//	 public static IPizzaDao dao = new PizzaMemDao();
 	public static IPizzaDao dao = new PizzaBddDao();
-	// public static IPizzaDao dao = new PizzaFileDao();
+//	public static IPizzaDao dao = new PizzaFileDao();
 
 	// Affichage du menu
 	public static void pizzaMenu() {
@@ -60,7 +60,8 @@ public class PizzeriaAdminConsoleApp {
 					scan.close();
 					break;
 				}
-			} catch (Exception e) {
+			} 
+			catch (Exception e) {
 				
 				e.printStackTrace();
 

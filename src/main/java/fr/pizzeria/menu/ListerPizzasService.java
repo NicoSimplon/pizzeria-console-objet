@@ -11,7 +11,8 @@ public class ListerPizzasService extends MenuService {
 	@Override
 	public void executeUC(Scanner scanner, IPizzaDao dao) {
 		
-		System.out.println("Liste des pizzas");
+		System.out.println("Liste des pizzas :");
+		System.out.println("------------------");
 
 		List<Pizza> tableauPizza = dao.findAllPizzas();
 		
