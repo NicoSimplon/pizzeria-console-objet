@@ -7,6 +7,13 @@ import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.StockageException;
 
+
+/**
+ * Supprime la pizza sélectionnée
+ * 
+ * @author Nicolas
+ *
+ */
 public class SupprimerPizzaService extends MenuService {
 
 	@Override

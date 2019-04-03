@@ -8,6 +8,12 @@ import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Affiche la liste des pizzas
+ * 
+ * @author Nicolas
+ *
+ */
 public class ListerPizzasService extends MenuService  {
 
 	@Override

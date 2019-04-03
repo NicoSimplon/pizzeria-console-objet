@@ -9,6 +9,12 @@ import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Modifie la pizza sélectionnée
+ * 
+ * @author Nicolas
+ *
+ */
 public class ModifierPizzaService extends MenuService {
 
 	@Override

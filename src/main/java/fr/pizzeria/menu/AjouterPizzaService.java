@@ -10,6 +10,12 @@ import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
+/**
+ * Ajoute une nouvelle pizza avec les caractéristiques renseignées par l'utilisateur
+ * 
+ * @author Nicolas
+ *
+ */
 public class AjouterPizzaService extends MenuService {
 
 	@Override
