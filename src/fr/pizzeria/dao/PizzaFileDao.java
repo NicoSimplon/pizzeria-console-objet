@@ -21,27 +21,33 @@ public class PizzaFileDao implements IPizzaDao {
 		// Initialisation de l'ArrayList
 		this.tableauPizza = new ArrayList<>();
 
-		// Données Initiale (A commenter après l'initialisation du fichier .txt)
-//		initialisation();
-//		ecriture();
-
 		// Initialisation du fichier save.txt
 		gestionFichier = new GestionFichier();
-		lecture();
+		
+		if(gestionFichier.fichier.length() == 0){
+			
+			this.initialisation();
+			ecriture();
+		}
+		else 
+		{
+			lecture();
+		}
+		
 	}
 
 	/**
 	 * Initialise les données de base de la liste de pizzas
 	 */
 	public void initialisation() {
-		tableauPizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(2, "REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(3, "FRO", "Les 4 fromages", 12.00, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(4, "CAN", "La canibale", 12.50, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(5, "SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(6, "ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(7, "IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("FRO", "Les 4 fromages", 12.00, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("CAN", "La canibale", 12.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza("IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
 	}
 
 	@Override
@@ -118,7 +124,6 @@ public class PizzaFileDao implements IPizzaDao {
 		List<String> listString = new ArrayList<String>();
 
 		for (Pizza pizza : tableauPizza)
-			if (pizza != null)
 				listString.add(pizza.toSave());
 
 		gestionFichier.ecriture(listString);
@@ -131,20 +136,19 @@ public class PizzaFileDao implements IPizzaDao {
 
 		List<String> listString = gestionFichier.lecture();
 
-		int max = 0;
 		CategoriePizza categorie = null;
 		
 		for (String s : listString) {
 			String[] pizza = s.split(",");
-			max = Integer.parseInt(pizza[0]);
+
 			for (CategoriePizza z : CategoriePizza.values()) {
 				if (z.getType().equals(pizza[4])) {
 					categorie = z;
 				}
 			}
-			this.tableauPizza.add(new Pizza(Integer.parseInt(pizza[0]), pizza[1], pizza[2], Double.parseDouble(pizza[3]), categorie));
+			this.tableauPizza.add(new Pizza(pizza[1], pizza[2], Double.parseDouble(pizza[3]), categorie));
 		}
-		Pizza.setCompteur(max);
+
 	}
 
 }

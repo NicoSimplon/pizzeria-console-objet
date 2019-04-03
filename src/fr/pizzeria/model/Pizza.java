@@ -23,7 +23,7 @@ public class Pizza {
 	@ToString(separateur = " - ")
 	private double prix;
 
-	private static int compteur;
+	private static int compteur = 0;
 
 	@ToString(separateur = " - ")
 	private CategoriePizza categorie;
@@ -43,8 +43,8 @@ public class Pizza {
 		this.libelle = libelle;
 		this.prix = prix;
 		this.categorie = categorie;
-		Pizza.compteur += 1;
 		this.id = Pizza.compteur;
+		Pizza.compteur += 1;
 	}
 
 	/**
