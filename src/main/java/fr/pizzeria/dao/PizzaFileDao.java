@@ -22,7 +22,7 @@ public class PizzaFileDao implements IPizzaDao {
 		this.tableauPizza = new ArrayList<>();
 
 		// Initialisation du fichier save.txt
-		gestionFichier = new GestionFichier();
+		gestionFichier = new GestionFichier("save.txt");
 		
 		if(gestionFichier.fichier.length() == 0){
 			

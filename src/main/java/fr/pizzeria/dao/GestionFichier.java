@@ -17,11 +17,11 @@ public class GestionFichier {
 	public PrintWriter ecritureFichier;
 	public BufferedReader lectureFichier;
 	
-	public GestionFichier() {
+	public GestionFichier(String path) {
 				
 		try {
 				
-			this.fichier = new File("C:\\TEMP\\workspace\\pizzeria-console-objet\\src\\main\\java\\save.txt");
+			this.fichier = new File(path);
 				
 			if (fichier.exists () == false) {
 				fichier.createNewFile ();					

@@ -9,7 +9,6 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
@@ -23,6 +22,54 @@ import fr.pizzeria.model.Pizza;
  */
 public class PizzaBddDao implements IPizzaDao {
 
+	String jdbcUrl = null;
+	String userName = null;
+	String password = null;
+	Connection connexionBDD = null;
+	PreparedStatement st = null;
+	
+	private void beginConnexionBdd ()
+	{
+		try
+		{
+			
+			GestionFichier file = new GestionFichier ("jdbc.properties");
+
+			List <String> listString = file.lecture();
+			
+
+			jdbcUrl = listString.get(0).split(";")[1];
+			userName = listString.get(1).split(";")[1];
+			password = listString.get(2).split(";")[1];
+			
+			Class.forName("com.mysql.jdbc.Driver");
+			
+			connexionBDD = DriverManager.getConnection(jdbcUrl, userName, password);
+			//connexionBDD.setAutoCommit(false);
+		}
+		catch (ClassNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private void closeConnexionBdd()
+	{
+		try
+		{
+			st.close ();
+			connexionBDD.close ();
+		}
+		catch (SQLException e)
+		{
+			e.printStackTrace();
+		}
+}
+	
 	/**
 	 * Récupère la liste des pizzas sous forme d'objets de type Pizza
 	 */
@@ -33,13 +80,9 @@ public class PizzaBddDao implements IPizzaDao {
 
 		try {
 			
-			Class.forName("com.mysql.jdbc.Driver");
+			beginConnexionBdd();
 
-			String jdbcUrl = "jdbc:mysql://localhost:3306/bdd_pizzeria?useSSL=false";
-
-			Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
-
-			PreparedStatement st = uneConnexion.prepareStatement ("SELECT * FROM pizzas;");
+			st = connexionBDD.prepareStatement ("SELECT * FROM pizzas;");
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
@@ -59,15 +102,9 @@ public class PizzaBddDao implements IPizzaDao {
 
 			rs.close();
 
-			st.close();
-
-			uneConnexion.close();
+			closeConnexionBdd();
 
 			
-
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
 
 		} catch (SQLException e) {
 
@@ -86,28 +123,19 @@ public class PizzaBddDao implements IPizzaDao {
 
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-
-			String jdbcUrl = "jdbc:mysql://localhost:3306/bdd_pizzeria?useSSL=false";
-
-			Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
+			beginConnexionBdd();
 			
-			PreparedStatement insertPizza = uneConnexion.prepareStatement(
+			st = connexionBDD.prepareStatement(
 				"INSERT INTO pizzas (code, libelle, prix, categorie) VALUES(?, ?, ?, ?);"
 			);
-			insertPizza.setString(1, pizza.getCode());
-			insertPizza.setString(2, pizza.getLibelle());
-			insertPizza.setDouble(3, pizza.getPrix());
-			insertPizza.setString(4, pizza.getCategorie().getType());
-			insertPizza.executeUpdate();
+			st.setString(1, pizza.getCode());
+			st.setString(2, pizza.getLibelle());
+			st.setDouble(3, pizza.getPrix());
+			st.setString(4, pizza.getCategorie().getType());
+			st.executeUpdate();
 
-
-			insertPizza.close();
-			uneConnexion.close();
-
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
+			closeConnexionBdd();
+			
 
 		} catch (SQLException e) {
 
@@ -125,29 +153,20 @@ public class PizzaBddDao implements IPizzaDao {
 
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-
-			String jdbcUrl = "jdbc:mysql://localhost:3306/bdd_pizzeria?useSSL=false";
-
-			Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
+			beginConnexionBdd();
 			
-			PreparedStatement updatePizza = uneConnexion.prepareStatement(
+			st = connexionBDD.prepareStatement(
 				"UPDATE pizzas SET code = ?, libelle = ?, prix = ?, categorie = ? WHERE code = ?;"
 			);
-			updatePizza.setString(1, pizza.getCode());
-			updatePizza.setString(2, pizza.getLibelle());
-			updatePizza.setDouble(3, pizza.getPrix());
-			updatePizza.setString(4, pizza.getCategorie().getType());
-			updatePizza.setString(5, codePizza);
-			updatePizza.executeUpdate();
+			st.setString(1, pizza.getCode());
+			st.setString(2, pizza.getLibelle());
+			st.setDouble(3, pizza.getPrix());
+			st.setString(4, pizza.getCategorie().getType());
+			st.setString(5, codePizza);
+			st.executeUpdate();
 
+			closeConnexionBdd();
 
-			updatePizza.close();
-			uneConnexion.close();
-
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
 
 		} catch (SQLException e) {
 
@@ -165,26 +184,17 @@ public class PizzaBddDao implements IPizzaDao {
 		
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-
-			String jdbcUrl = "jdbc:mysql://localhost:3306/bdd_pizzeria?useSSL=false";
-
-			Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
+			beginConnexionBdd();
 			
-			PreparedStatement deletePizza = uneConnexion.prepareStatement(
+			st = connexionBDD.prepareStatement(
 				"DELETE FROM pizzas WHERE code = ?;"
 			);
 
-			deletePizza.setString(1, codePizza);
-			deletePizza.executeUpdate();
+			st.setString(1, codePizza);
+			st.executeUpdate();
 
 
-			deletePizza.close();
-			uneConnexion.close();
-
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
+			closeConnexionBdd();
 
 		} catch (SQLException e) {
 
@@ -202,18 +212,14 @@ public class PizzaBddDao implements IPizzaDao {
 		
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-
-			String jdbcUrl = "jdbc:mysql://localhost:3306/bdd_pizzeria?useSSL=false";
-
-			Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
+			beginConnexionBdd();
 			
-			PreparedStatement selectPizza = uneConnexion.prepareStatement(
+			st = connexionBDD.prepareStatement(
 				"SELECT * FROM pizzas WHERE code = ?;"
 			);
 
-			selectPizza.setString(1, codePizza);
-			ResultSet rs = selectPizza.executeQuery();
+			st.setString(1, codePizza);
+			ResultSet rs = st.executeQuery();
 			
 			int id = rs.getInt("id");
 			String code = rs.getString("code");
@@ -221,19 +227,14 @@ public class PizzaBddDao implements IPizzaDao {
 			double prix = rs.getDouble("prix");
 			String categorie = rs.getString("categorie");
 			
-			CategoriePizza categoriePizza = CategoriePizza.valueOf(categorie);
+			CategoriePizza categoriePizza = CategoriePizza.valueOf(categorie.toUpperCase());
 
 			Pizza piz = new Pizza(id, code, libelle, prix, categoriePizza);
 			
 			rs.close();
-			selectPizza.close();
-			uneConnexion.close();
+			closeConnexionBdd();
 
 			return piz;
-
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
 
 		} catch (SQLException e) {
 
@@ -252,32 +253,23 @@ public class PizzaBddDao implements IPizzaDao {
 		
 		try {
 
-			Class.forName("com.mysql.jdbc.Driver");
-
-			String jdbcUrl = "jdbc:mysql://localhost:3306/bdd_pizzeria?useSSL=false";
-
-			Connection uneConnexion = DriverManager.getConnection(jdbcUrl, "root", "");
+			beginConnexionBdd();
 			
-			PreparedStatement selectPizza = uneConnexion.prepareStatement(
+			st = connexionBDD.prepareStatement(
 				"SELECT * FROM pizzas WHERE code = ?;"
 			);
 
-			selectPizza.setString(1, codePizza);
-			ResultSet rs = selectPizza.executeQuery();
+			st.setString(1, codePizza);
+			ResultSet rs = st.executeQuery();
 			
 			rs.close();
-			selectPizza.close();
-			uneConnexion.close();
+			closeConnexionBdd();
 
 			if (rs != null){
 				
 				return true;
 
 			}
-
-		} catch (ClassNotFoundException e) {
-
-			e.printStackTrace();
 
 		} catch (SQLException e) {
 
