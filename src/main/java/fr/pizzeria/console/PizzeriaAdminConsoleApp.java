@@ -1,7 +1,9 @@
 package fr.pizzeria.console;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
+import fr.pizzeria.dao.PizzaBddDao;
 import fr.pizzeria.dao.PizzaFileDao;
 import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.exception.StockageException;
@@ -12,7 +14,8 @@ public class PizzeriaAdminConsoleApp {
 	// Instance unique du scanner
 	public static Scanner scan = new Scanner(System.in);
 	// Instance du DAO
-	 public static IPizzaDao dao = new PizzaMemDao();
+	// public static IPizzaDao dao = new PizzaMemDao();
+	public static IPizzaDao dao = new PizzaBddDao();
 	// public static IPizzaDao dao = new PizzaFileDao();
 
 	// Affichage du menu
@@ -26,7 +29,8 @@ public class PizzeriaAdminConsoleApp {
 		System.out.println("99. Sortir");
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		
 		MenuFactory menu = new MenuFactory();
 		
@@ -48,14 +52,17 @@ public class PizzeriaAdminConsoleApp {
 				else if (choix.equals("4")) {
 					menu.create("supprimer").executeUC(scan, dao);
 				}
+				else if (choix.equals("5")) {
+					menu.create("initialiser").executeUC(scan, dao);
+				}
 				else if (choix.equals("99")) {
 					System.out.println("Aurevoir ☹");
 					scan.close();
 					break;
 				}
-			} catch (StockageException e) {
+			} catch (Exception e) {
 				
-				e.getStackTrace();
+				e.printStackTrace();
 
 			}
 			
