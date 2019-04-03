@@ -44,6 +44,9 @@ public class PizzaBddDao implements IPizzaDao {
 
 	}
 
+	/**
+	 * Ouvre une connexion à la base de données
+	 */
 	private void openConnexion() {
 
 		try {
@@ -63,6 +66,9 @@ public class PizzaBddDao implements IPizzaDao {
 		}
 	}
 
+	/**
+	 * Ferme la connexion à la base de données
+	 */
 	private void closeConnexion() {
 		try {
 
