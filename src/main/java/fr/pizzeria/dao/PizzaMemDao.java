@@ -26,6 +26,8 @@ public class PizzaMemDao implements IPizzaDao {
 		tableauPizza.add(new Pizza(5, "SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(6, "ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(7, "IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
+		
+		this.tableauPizza = tableauPizza;
 	}
 
 	@Override
@@ -36,23 +38,7 @@ public class PizzaMemDao implements IPizzaDao {
 	@Override
 	public void saveNewPizza(Pizza pizza) {
 
-		boolean vide = false;
-
-		for (int i = 0; i < this.tableauPizza.size(); i++) {
-			if (this.tableauPizza.get(i) == null) {
-				this.tableauPizza.set(i, pizza);
-				vide = true;
-				break;
-			} else {
-				vide = false;
-			}
-		}
-
-		if (vide == false) {
-
-			this.tableauPizza.add(pizza);
-
-		}
+		this.tableauPizza.add(pizza);
 
 	}
 
