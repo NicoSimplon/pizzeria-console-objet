@@ -2,6 +2,7 @@ package fr.pizzeria.dao;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import java.sql.PreparedStatement;
 
@@ -22,54 +23,59 @@ import fr.pizzeria.model.Pizza;
  */
 public class PizzaBddDao implements IPizzaDao {
 
-	String jdbcUrl = null;
-	String userName = null;
-	String password = null;
+	private String driver;
+	private String url;
+	private String user;
+	private String password;
 	Connection connexionBDD = null;
 	PreparedStatement st = null;
-	
-	private void beginConnexionBdd ()
-	{
-		try
-		{
-			
-			GestionFichier file = new GestionFichier ("jdbc.properties");
 
-			List <String> listString = file.lecture();
-			
+	/**
+	 * Constructeur avec initialisation des variables de connexion à la BDD
+	 */
+	public PizzaBddDao() {
 
-			jdbcUrl = listString.get(0).split(";")[1];
-			userName = listString.get(1).split(";")[1];
-			password = listString.get(2).split(";")[1];
-			
-			Class.forName("com.mysql.jdbc.Driver");
-			
-			connexionBDD = DriverManager.getConnection(jdbcUrl, userName, password);
-			//connexionBDD.setAutoCommit(false);
-		}
-		catch (ClassNotFoundException e)
-		{
+		super();
+		ResourceBundle bundle = ResourceBundle.getBundle("jdbc");
+		this.url = bundle.getString("jdbc.url");
+		this.user = bundle.getString("jdbc.user");
+		this.password = bundle.getString("jdbc.password");
+		this.driver = bundle.getString("jdbc.driver");
+
+	}
+
+	private void openConnexion() {
+
+		try {
+
+			Class.forName(this.driver);
+
+			connexionBDD = DriverManager.getConnection(this.url, this.user, this.password);
+
+		} catch (ClassNotFoundException e) {
+
 			e.printStackTrace();
-		}
-		catch (SQLException e)
-		{
+
+		} catch (SQLException e) {
+
 			e.printStackTrace();
+
 		}
 	}
-	
-	private void closeConnexionBdd()
-	{
-		try
-		{
-			st.close ();
-			connexionBDD.close ();
-		}
-		catch (SQLException e)
-		{
+
+	private void closeConnexion() {
+		try {
+
+			st.close();
+			connexionBDD.close();
+
+		} catch (SQLException e) {
+
 			e.printStackTrace();
+
 		}
-}
-	
+	}
+
 	/**
 	 * Récupère la liste des pizzas sous forme d'objets de type Pizza
 	 */
@@ -79,10 +85,10 @@ public class PizzaBddDao implements IPizzaDao {
 		List<Pizza> tabPizz = new ArrayList<>();
 
 		try {
-			
-			beginConnexionBdd();
 
-			st = connexionBDD.prepareStatement ("SELECT * FROM pizzas;");
+			openConnexion();
+
+			st = connexionBDD.prepareStatement("SELECT * FROM pizzas;");
 			ResultSet rs = st.executeQuery();
 
 			while (rs.next()) {
@@ -102,13 +108,11 @@ public class PizzaBddDao implements IPizzaDao {
 
 			rs.close();
 
-			closeConnexionBdd();
-
-			
+			closeConnexion();
 
 		} catch (SQLException e) {
 
-			System.out.println (e.getMessage());
+			System.out.println(e.getMessage());
 		}
 
 		return tabPizz;
@@ -123,26 +127,24 @@ public class PizzaBddDao implements IPizzaDao {
 
 		try {
 
-			beginConnexionBdd();
-			
-			st = connexionBDD.prepareStatement(
-				"INSERT INTO pizzas (code, libelle, prix, categorie) VALUES(?, ?, ?, ?);"
-			);
+			openConnexion();
+
+			st = connexionBDD
+					.prepareStatement("INSERT INTO pizzas (code, libelle, prix, categorie) VALUES(?, ?, ?, ?);");
 			st.setString(1, pizza.getCode());
 			st.setString(2, pizza.getLibelle());
 			st.setDouble(3, pizza.getPrix());
 			st.setString(4, pizza.getCategorie().getType());
 			st.executeUpdate();
 
-			closeConnexionBdd();
-			
+			closeConnexion();
 
 		} catch (SQLException e) {
 
 			e.printStackTrace();
 
 		}
-		
+
 	}
 
 	/**
@@ -153,11 +155,11 @@ public class PizzaBddDao implements IPizzaDao {
 
 		try {
 
-			beginConnexionBdd();
-			
+			openConnexion();
+
 			st = connexionBDD.prepareStatement(
-				"UPDATE pizzas SET code = ?, libelle = ?, prix = ?, categorie = ? WHERE code = ?;"
-			);
+					"UPDATE pizzas SET code = ?, libelle = ?, prix = ?, categorie = ? WHERE code = ?;");
+
 			st.setString(1, pizza.getCode());
 			st.setString(2, pizza.getLibelle());
 			st.setDouble(3, pizza.getPrix());
@@ -165,8 +167,7 @@ public class PizzaBddDao implements IPizzaDao {
 			st.setString(5, codePizza);
 			st.executeUpdate();
 
-			closeConnexionBdd();
-
+			closeConnexion();
 
 		} catch (SQLException e) {
 
@@ -181,20 +182,17 @@ public class PizzaBddDao implements IPizzaDao {
 	 */
 	@Override
 	public void deletePizza(String codePizza) {
-		
+
 		try {
 
-			beginConnexionBdd();
-			
-			st = connexionBDD.prepareStatement(
-				"DELETE FROM pizzas WHERE code = ?;"
-			);
+			openConnexion();
+
+			st = connexionBDD.prepareStatement("DELETE FROM pizzas WHERE code = ?;");
 
 			st.setString(1, codePizza);
 			st.executeUpdate();
 
-
-			closeConnexionBdd();
+			closeConnexion();
 
 		} catch (SQLException e) {
 
@@ -209,30 +207,28 @@ public class PizzaBddDao implements IPizzaDao {
 	 */
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
-		
+
 		try {
 
-			beginConnexionBdd();
-			
-			st = connexionBDD.prepareStatement(
-				"SELECT * FROM pizzas WHERE code = ?;"
-			);
+			openConnexion();
+
+			st = connexionBDD.prepareStatement("SELECT * FROM pizzas WHERE code = ?;");
 
 			st.setString(1, codePizza);
 			ResultSet rs = st.executeQuery();
-			
+
 			int id = rs.getInt("id");
 			String code = rs.getString("code");
 			String libelle = rs.getString("libelle");
 			double prix = rs.getDouble("prix");
 			String categorie = rs.getString("categorie");
-			
+
 			CategoriePizza categoriePizza = CategoriePizza.valueOf(categorie.toUpperCase());
 
 			Pizza piz = new Pizza(id, code, libelle, prix, categoriePizza);
-			
+
 			rs.close();
-			closeConnexionBdd();
+			closeConnexion();
 
 			return piz;
 
@@ -241,7 +237,7 @@ public class PizzaBddDao implements IPizzaDao {
 			e.printStackTrace();
 
 		}
-		
+
 		return null;
 	}
 
@@ -250,23 +246,21 @@ public class PizzaBddDao implements IPizzaDao {
 	 */
 	@Override
 	public boolean pizzaExists(String codePizza) {
-		
+
 		try {
 
-			beginConnexionBdd();
-			
-			st = connexionBDD.prepareStatement(
-				"SELECT * FROM pizzas WHERE code = ?;"
-			);
+			openConnexion();
+
+			st = connexionBDD.prepareStatement("SELECT * FROM pizzas WHERE code = ?;");
 
 			st.setString(1, codePizza);
 			ResultSet rs = st.executeQuery();
-			
-			rs.close();
-			closeConnexionBdd();
 
-			if (rs != null){
-				
+			rs.close();
+			closeConnexion();
+
+			if (rs != null) {
+
 				return true;
 
 			}
@@ -276,7 +270,7 @@ public class PizzaBddDao implements IPizzaDao {
 			e.printStackTrace();
 
 		}
-		
+
 		return false;
 	}
 
