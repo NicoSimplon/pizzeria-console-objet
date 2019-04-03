@@ -1,4 +1,4 @@
-#Application Pizza Console
+# Application Pizza Console
 
 Cette application permet d'administrer les données d'une pizzeria.
 
