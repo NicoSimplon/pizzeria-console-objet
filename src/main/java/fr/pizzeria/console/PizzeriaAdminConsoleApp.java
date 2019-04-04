@@ -28,6 +28,7 @@ public class PizzeriaAdminConsoleApp {
 		System.out.println("2. Ajouter une nouvelle pizza");
 		System.out.println("3. Mettre à jour une pizza");
 		System.out.println("4. Supprimer une pizza");
+		System.out.println("5. Initialiser la base de données");
 		System.out.println("99. Sortir");
 	}
 

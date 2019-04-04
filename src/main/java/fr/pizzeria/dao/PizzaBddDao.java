@@ -306,5 +306,53 @@ public class PizzaBddDao implements IPizzaDao {
 
 		return false;
 	}
+	
+	public void initialiserBdd() {
+		
+		// Initialisation de la liste avec les pizzas de base
+		List<Pizza> tableauPizza = new ArrayList<>();
+		tableauPizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(2, "REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(3, "FRO", "Les 4 fromages", 12.00, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(4, "CAN", "La canibale", 12.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(5, "SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(6, "ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(7, "IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
+		
+		try {
+
+			openConnexion();
+			
+			for (Pizza p : tableauPizza) {
+				
+				st = connexionBDD.prepareStatement("INSERT INTO pizzas (code, libelle, prix, categorie) VALUES(?, ?, ?, ?);");
+				
+				st.setString(1, p.getCode());
+				st.setString(2, p.getLibelle());
+				st.setDouble(3, p.getPrix());
+				st.setString(4, p.getCategorie().getType());
+				st.executeUpdate();
+				
+				ResultSet rs = st.executeQuery();
+
+			}
+
+		} 
+		catch (SQLException e) {
+
+			throw new DataAccessException (
+				"Une erreur est survenue durant l'initialisation de la base de données,"
+				+ " il est possible q'une ou plusieurs pizza existent déjà", 
+			e);
+
+		}
+		finally {
+			
+			closeConnexion();
+			
+		}
+		
+	}
 
 }

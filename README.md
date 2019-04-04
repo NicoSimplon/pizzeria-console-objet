@@ -8,5 +8,6 @@ Cette application permet d'administrer les données d'une pizzeria.
 2. Ajouter une nouvelle pizza
 3. Mettre à jour une pizza
 4. Supprimer une pizza
+5. Initialiser la base de données
 99. Sortir
 ```

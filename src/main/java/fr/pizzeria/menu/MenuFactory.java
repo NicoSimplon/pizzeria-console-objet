@@ -26,6 +26,10 @@ public class MenuFactory {
 			
 			return new SupprimerPizzaService();
 			
+		} else if (typeservice.equals("initialiser")) {
+			
+			return new InitialiserPizzaService();
+			
 		}
 		
 		return null;
