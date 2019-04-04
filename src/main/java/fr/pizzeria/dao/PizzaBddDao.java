@@ -341,10 +341,7 @@ public class PizzaBddDao implements IPizzaDao {
 		} 
 		catch (SQLException e) {
 
-			throw new DataAccessException (
-				"Une erreur est survenue durant l'initialisation de la base de données,"
-				+ " il est possible q'une ou plusieurs pizza existent déjà", 
-			e);
+			throw new DataAccessException ("La base de données est déjà initialisée", e);
 
 		}
 		finally {
