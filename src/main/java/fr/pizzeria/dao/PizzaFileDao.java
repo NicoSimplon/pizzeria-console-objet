@@ -151,4 +151,13 @@ public class PizzaFileDao implements IPizzaDao {
 
 	}
 
+	/**
+	 * Utilisé uniquement avec PizzaBddDao
+	 */
+	@Override
+	public void initialiserBdd() {
+		
+		
+	}
+
 }

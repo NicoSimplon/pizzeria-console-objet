@@ -12,6 +12,8 @@ public class InitialiserPizzaService extends MenuService {
 	public void executeUC(Scanner scanner, IPizzaDao dao) throws StockageException, SQLException {
 		
 		dao.initialiserBdd();
+		
+		System.out.println("Base de données initialisée avec succès");
 
 	}
 

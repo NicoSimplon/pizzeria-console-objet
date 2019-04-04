@@ -49,4 +49,9 @@ public interface IPizzaDao {
 	 */
 	boolean pizzaExists(String codePizza);
 
+	/**
+	 * Ajoute les pizzas de base dans la base de données (elle doit exister et contenie la table pizzas)
+	 */
+	void initialiserBdd();
+
 }

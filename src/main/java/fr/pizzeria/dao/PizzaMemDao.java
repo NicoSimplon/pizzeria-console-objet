@@ -91,4 +91,12 @@ public class PizzaMemDao implements IPizzaDao {
 		return exist;
 	}
 
+	/**
+	 * Utilisé uniquement avec PizzaBddDao
+	 */
+	@Override
+	public void initialiserBdd() {
+		
+	}
+
 }

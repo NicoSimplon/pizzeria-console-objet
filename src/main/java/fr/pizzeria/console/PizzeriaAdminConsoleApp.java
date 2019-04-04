@@ -28,7 +28,11 @@ public class PizzeriaAdminConsoleApp {
 		System.out.println("2. Ajouter une nouvelle pizza");
 		System.out.println("3. Mettre à jour une pizza");
 		System.out.println("4. Supprimer une pizza");
-		System.out.println("5. Initialiser la base de données");
+		
+		if (PizzaBddDao.class.isInstance(dao)) {
+			System.out.println("5. Initialiser la base de données");			
+		}
+		
 		System.out.println("99. Sortir");
 	}
 
@@ -56,7 +60,11 @@ public class PizzeriaAdminConsoleApp {
 					menu.create("supprimer").executeUC(scan, dao);
 				}
 				else if (choix.equals("5")) {
-					menu.create("initialiser").executeUC(scan, dao);
+					
+					if (PizzaBddDao.class.isInstance(dao)) {
+						menu.create("initialiser").executeUC(scan, dao);
+					}
+
 				}
 				else if (choix.equals("99")) {
 					System.out.println("Aurevoir ☹");
@@ -67,6 +75,7 @@ public class PizzeriaAdminConsoleApp {
 			catch (StockageException|DataAccessException e) {
 				
 				System.out.println(e.getMessage());
+//				e.printStackTrace();
 
 			}
 			catch (Exception e) {

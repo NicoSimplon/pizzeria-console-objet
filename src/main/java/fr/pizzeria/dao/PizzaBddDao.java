@@ -313,7 +313,7 @@ public class PizzaBddDao implements IPizzaDao {
 		List<Pizza> tableauPizza = new ArrayList<>();
 		tableauPizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
-		tableauPizza.add(new Pizza(2, "REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
+		tableauPizza.add(new Pizza(2, "REI", "La Reine", 11.50, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(3, "FRO", "Les 4 fromages", 12.00, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(4, "CAN", "La canibale", 12.50, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(5, "SAV", "La savoyarde", 13.00, CategoriePizza.VIANDE));
@@ -332,9 +332,9 @@ public class PizzaBddDao implements IPizzaDao {
 				st.setString(2, p.getLibelle());
 				st.setDouble(3, p.getPrix());
 				st.setString(4, p.getCategorie().getType());
+				
 				st.executeUpdate();
 				
-				ResultSet rs = st.executeQuery();
 
 			}
 
