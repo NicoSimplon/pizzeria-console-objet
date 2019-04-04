@@ -5,6 +5,7 @@ import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaBddDao;
 import fr.pizzeria.dao.PizzaFileDao;
+import fr.pizzeria.dao.PizzaJpaDao;
 import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.exception.DataAccessException;
 import fr.pizzeria.exception.StockageException;
@@ -17,7 +18,8 @@ public class PizzeriaAdminConsoleApp {
 	
 	// Instance du DAO
 //	 public static IPizzaDao dao = new PizzaMemDao();
-	public static IPizzaDao dao = new PizzaBddDao();
+//	public static IPizzaDao dao = new PizzaBddDao();
+	public static IPizzaDao dao = new PizzaJpaDao();
 //	public static IPizzaDao dao = new PizzaFileDao();
 
 	// Affichage du menu

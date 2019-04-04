@@ -2,6 +2,16 @@ package fr.pizzeria.model;
 
 import java.lang.reflect.Field;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
 import fr.pizzeria.utils.*;
 
 /**
@@ -10,23 +20,38 @@ import fr.pizzeria.utils.*;
  * @author Nicolas
  *
  */
+@Entity
+@Table(name = "pizzas")
 public class Pizza {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
 	private int id;
 
 	@ToString(upperCase = true)
+	@Column(name = "code")
 	private String code;
 
 	@ToString(separateur = " -> ", upperCase = true)
+	@Column(name = "libelle")
 	private String libelle;
 
 	@ToString(separateur = " - ")
+	@Column(name = "prix")
 	private double prix;
 
 	private static int compteur = 0;
 
 	@ToString(separateur = " - ")
-	private CategoriePizza categorie;
+	private String categorie;
+
+	/**
+	 * Constructeur par défaut
+	 */
+	public Pizza() {
+		
+	}
 
 	/**
 	 * Constructeur avec compteur
@@ -42,7 +67,7 @@ public class Pizza {
 		this.code = code;
 		this.libelle = libelle;
 		this.prix = prix;
-		this.categorie = categorie;
+		this.categorie = "Default";
 		this.id = Pizza.compteur;
 		Pizza.compteur += 1;
 	}
@@ -164,8 +189,7 @@ public class Pizza {
 	 * @param id
 	 *            Identifiant de la pizza
 	 */
-	@SuppressWarnings("unused")
-	private void setId(int id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -180,8 +204,7 @@ public class Pizza {
 	 * @param code
 	 *            Référence de la pizza
 	 */
-	@SuppressWarnings("unused")
-	private void setCode(String code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
@@ -196,8 +219,7 @@ public class Pizza {
 	 * @param libelle
 	 *            Nom de la pizza
 	 */
-	@SuppressWarnings("unused")
-	private void setLibelle(String libelle) {
+	public void setLibelle(String libelle) {
 		this.libelle = libelle;
 	}
 
@@ -212,8 +234,7 @@ public class Pizza {
 	 * @param prix
 	 *            Prix de la pizza
 	 */
-	@SuppressWarnings("unused")
-	private void setPrix(double prix) {
+	public void setPrix(double prix) {
 		this.prix = prix;
 	}
 
@@ -231,12 +252,12 @@ public class Pizza {
 		Pizza.compteur = compteur;
 	}
 
-	public CategoriePizza getCategorie() {
-		return categorie;
+	public String getCategorie() {
+		return this.categorie;
 	}
 
-	public void setCategorie(CategoriePizza categorie) {
-		this.categorie = categorie;
+	public void setCategorie(String string) {
+		this.categorie = "Default";
 	}
 
 }
