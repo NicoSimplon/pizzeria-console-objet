@@ -3,7 +3,10 @@ package fr.pizzeria.model;
 import java.lang.reflect.Field;
 
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -44,7 +47,8 @@ public class Pizza {
 	private static int compteur = 0;
 
 	@ToString(separateur = " - ")
-	private String categorie;
+	@Enumerated(EnumType.STRING)
+	private CategoriePizza categorie;
 
 	/**
 	 * Constructeur par défaut
@@ -67,7 +71,7 @@ public class Pizza {
 		this.code = code;
 		this.libelle = libelle;
 		this.prix = prix;
-		this.categorie = "Default";
+		this.categorie = categorie;
 		this.id = Pizza.compteur;
 		Pizza.compteur += 1;
 	}
@@ -252,12 +256,12 @@ public class Pizza {
 		Pizza.compteur = compteur;
 	}
 
-	public String getCategorie() {
+	public CategoriePizza getCategorie() {
 		return this.categorie;
 	}
 
-	public void setCategorie(String string) {
-		this.categorie = "Default";
+	public void setCategorie(CategoriePizza categoriePizza) {
+		this.categorie = categoriePizza;
 	}
 
 }

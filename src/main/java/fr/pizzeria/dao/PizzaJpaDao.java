@@ -1,5 +1,6 @@
 package fr.pizzeria.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -13,7 +14,7 @@ import fr.pizzeria.exception.DataAccessException;
 import fr.pizzeria.model.Pizza;
 
 /**
- * Gestion du CRUD avec JPA (Java Persist)
+ * Gestion du CRUD avec JPA (Java Persistence API)
  * 
  * @author Nicolas
  *
@@ -21,36 +22,36 @@ import fr.pizzeria.model.Pizza;
 public class PizzaJpaDao implements IPizzaDao {
 
 	private EntityManagerFactory emFactory;
-	private EntityManager em;
-	private EntityTransaction et;
-
-	private void openConnexion() {
-
+	
+	public PizzaJpaDao() {
 		this.emFactory = Persistence.createEntityManagerFactory("pizzeria-console-objet");
-		this.em = this.emFactory.createEntityManager();
-		this.et = this.em.getTransaction();
+	}
+
+	private EntityManager openConnexion() {
+		
+		return this.emFactory.createEntityManager();
 
 	}
 
-	private void closeConnexion() {
+	private void closeConnexion(EntityManager em) {
 
-		this.em.close();
-		this.emFactory.close();
+		em.close();
 
 	}
 
 	@Override
 	public List<Pizza> findAllPizzas() {
 		
-		this.openConnexion();
-		this.et.begin();
+		EntityManager em = this.openConnexion();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
 	
-		TypedQuery<Pizza> requete = this.em.createQuery("select p from Pizza p", Pizza.class);
+		TypedQuery<Pizza> requete = em.createQuery("select p from Pizza p", Pizza.class);
 	
 		List<Pizza> tabPizza = requete.getResultList();
 	
-		this.et.commit();
-		this.closeConnexion();
+		et.commit();
+		this.closeConnexion(em);
 
 		return tabPizza;
 
@@ -59,34 +60,37 @@ public class PizzaJpaDao implements IPizzaDao {
 	@Override
 	public void saveNewPizza(Pizza pizza) {
 			
-		this.openConnexion();
-		this.et.begin();
+		EntityManager em = this.openConnexion();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
 
-		this.em.persist(pizza);
+		em.persist(pizza);
 
-		this.et.commit();
-
-		this.closeConnexion();
+		et.commit();
+		this.closeConnexion(em);
 
 	}
 
 	@Override
 	public void updatePizza(String codePizza, Pizza pizza) {
 		
-		this.openConnexion();
-		this.et.begin();
-			
 		if(this.pizzaExists(codePizza)) {
-				
+
 			Pizza pizza1 = findPizzaByCode(codePizza);
-				
+			
+			EntityManager em = this.openConnexion();
+			EntityTransaction et = em.getTransaction();
+			et.begin();
+			
 			pizza1.setCode(pizza.getCode());
 			pizza1.setLibelle(pizza.getLibelle());
 			pizza1.setPrix(pizza.getPrix());
 			pizza1.setCategorie(pizza.getCategorie());
 				
-			this.em.merge(pizza1);
-			this.et.commit();
+			em.merge(pizza1);
+
+			et.commit();
+			this.closeConnexion(em);
 				
 		}
 		else {
@@ -95,38 +99,44 @@ public class PizzaJpaDao implements IPizzaDao {
 				
 		}
 			
-		this.closeConnexion();
 
 	}
 
 	@Override
 	public void deletePizza(String codePizza) {
 		
-		this.openConnexion();
-		this.et.begin();
+		EntityManager em = this.openConnexion();
+		EntityTransaction et = em.getTransaction();
+		et.begin();	
+		
+		TypedQuery<Pizza> requete = em.createQuery("select p from Pizza p where p.code = :code", Pizza.class);
+		requete.setParameter("code", codePizza);
 			
-		Pizza pizza = findPizzaByCode(codePizza);
-			
-		this.em.remove(pizza);
-	
-		this.et.commit();	
-		this.closeConnexion();
+		Pizza pizza = requete.getSingleResult();
+		
+		if (pizza != null){
+			em.remove(pizza);
+		}
+		
+		et.commit();
+		this.closeConnexion(em);
 
 	}
 
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
 
-		this.openConnexion();
-		this.et.begin();
+		EntityManager em = this.openConnexion();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
 	
-		TypedQuery<Pizza> requete = this.em.createQuery("select p from Pizza p where p.code = :code", Pizza.class);
+		TypedQuery<Pizza> requete = em.createQuery("select p from Pizza p where p.code = :code", Pizza.class);
 		requete.setParameter("code", codePizza);
 			
 		Pizza pizza = requete.getSingleResult();
 			
-		this.et.commit();
-		this.closeConnexion();
+		et.commit();
+		this.closeConnexion(em);
 
 		return pizza;
 
@@ -135,14 +145,21 @@ public class PizzaJpaDao implements IPizzaDao {
 	@Override
 	public boolean pizzaExists(String codePizza) {
 		
-		if(findPizzaByCode(codePizza) != null) {
-			return true;
+		boolean exist = false;
+		
+		List<Pizza> list = new ArrayList<>();
+		
+		list.add(findPizzaByCode(codePizza));
+		
+		if (list.size() == 1) {
+			exist = true;
 		}
-		return false;
+		
+		return exist;
 	}
 
 	/**
-	 * Ne fonctionne qu'avec le PizzaBddDao
+	 * Implémenté uniquement avec le PizzaBddDao
 	 */
 	@Override
 	public void initialiserBdd() {
