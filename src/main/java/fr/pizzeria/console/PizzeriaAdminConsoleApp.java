@@ -70,6 +70,11 @@ public class PizzeriaAdminConsoleApp {
 				}
 				else if (choix.equals("99")) {
 					System.out.println("Aurevoir ☹");
+					
+					if (PizzaJpaDao.class.isInstance(dao)) {
+						menu.create("fermeture").executeUC(scan, dao);
+					}
+					
 					scan.close();
 					break;
 				}

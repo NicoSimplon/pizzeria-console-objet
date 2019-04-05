@@ -160,4 +160,13 @@ public class PizzaFileDao implements IPizzaDao {
 		
 	}
 
+	/**
+	 * Utilisé uniquement avec PizzaJpaDao
+	 */
+	@Override
+	public void destroyEmFactory() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

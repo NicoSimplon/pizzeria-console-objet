@@ -38,6 +38,12 @@ public class PizzaJpaDao implements IPizzaDao {
 		em.close();
 
 	}
+	
+	public void destroyEmFactory(){
+		
+		this.emFactory.close();
+		
+	}
 
 	@Override
 	public List<Pizza> findAllPizzas() {

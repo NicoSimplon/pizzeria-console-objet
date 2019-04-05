@@ -54,4 +54,9 @@ public interface IPizzaDao {
 	 */
 	void initialiserBdd();
 
+	/**
+	 * Cloture du EntityManagerFactory (uniquement lorsque le PizzaJpaDao est actif)
+	 */
+	void destroyEmFactory();
+
 }

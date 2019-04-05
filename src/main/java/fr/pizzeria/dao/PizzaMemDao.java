@@ -99,4 +99,13 @@ public class PizzaMemDao implements IPizzaDao {
 		
 	}
 
+	/**
+	 * Utilisé uniquement avec PizzaJpaDao
+	 */
+	@Override
+	public void destroyEmFactory() {
+		
+		
+	}
+
 }
