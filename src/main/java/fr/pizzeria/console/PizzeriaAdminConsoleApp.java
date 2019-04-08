@@ -2,17 +2,16 @@ package fr.pizzeria.console;
 
 import java.sql.SQLException;
 import java.util.Scanner;
+
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaBddDao;
-import fr.pizzeria.dao.PizzaFileDao;
 import fr.pizzeria.dao.PizzaJpaDao;
-import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.exception.DataAccessException;
 import fr.pizzeria.exception.StockageException;
-import fr.pizzeria.menu.*;
+import fr.pizzeria.menu.MenuFactory;
 
 public class PizzeriaAdminConsoleApp {
-
+	
 	// Instance unique du scanner
 	public static Scanner scan = new Scanner(System.in);
 	
@@ -24,6 +23,7 @@ public class PizzeriaAdminConsoleApp {
 
 	// Affichage du menu
 	public static void pizzaMenu() {
+
 		System.out.println("");
 		System.out.println("***** Pizzeria Administration *****");
 		System.out.println("1. Lister les pizzas");
