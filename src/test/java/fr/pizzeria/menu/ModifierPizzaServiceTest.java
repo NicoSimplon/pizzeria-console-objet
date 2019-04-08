@@ -5,6 +5,7 @@ import static org.junit.contrib.java.lang.system.TextFromStandardInputStream.emp
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
@@ -12,6 +13,8 @@ import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.exception.StockageException;
+import fr.pizzeria.model.CategoriePizza;
+import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaServiceTest {
 
@@ -26,6 +29,8 @@ public class ModifierPizzaServiceTest {
 	
 		IPizzaDao dao = new PizzaMemDao();
 		
+		dao.saveNewPizza(new Pizza(9, "CDE", "PizzaBidon", 15.0, CategoriePizza.VIANDE));
+		
 		ModifierPizzaService service = new ModifierPizzaService();
 		
 		systemInMock.provideLines("CDE", "CDA", "PizzaBidon", "12.0", "Viande");
@@ -38,9 +43,8 @@ public class ModifierPizzaServiceTest {
 			e.printStackTrace();
 		}
 		
-		//TO DO
+		Assert.assertTrue(dao.pizzaExists("CDA"));
 
-		
 	}
 	
 }

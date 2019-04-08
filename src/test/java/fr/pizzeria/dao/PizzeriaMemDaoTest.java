@@ -59,10 +59,8 @@ public class PizzeriaMemDaoTest {
 	@Test
 	public void testdeletePizza() {
 		dao.saveNewPizza(new Pizza(9, "CDE", "PizzaBidon", 15.0, CategoriePizza.VIANDE));
-		int tabSize = dao.getTableauPizza().size();
 		dao.deletePizza("CDE");
-		Assert.assertTrue((tabSize - 1) == dao.getTableauPizza().size());
-		Assert.assertNull(dao.findPizzaByCode("CDA"));
+		Assert.assertFalse(dao.pizzaExists("CDE"));
 	}
 	
 	/**

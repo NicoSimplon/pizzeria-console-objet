@@ -26,7 +26,6 @@ public class AjouterPizzaServiceTest {
 	public void testexecuteUC() {
 	
 		IPizzaDao dao = new PizzaMemDao();
-		int size = dao.findAllPizzas().size();
 		
 		AjouterPizzaService service = new AjouterPizzaService();
 		
@@ -40,7 +39,7 @@ public class AjouterPizzaServiceTest {
 			e.printStackTrace();
 		}
 		
-		Assert.assertTrue((size + 1) == dao.findAllPizzas().size());
+		Assert.assertTrue(dao.pizzaExists("CDE"));;
 
 		
 	}

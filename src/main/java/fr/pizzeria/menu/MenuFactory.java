@@ -31,7 +31,9 @@ public class MenuFactory {
 			return new InitialiserPizzaService();
 			
 		} else if (typeservice.equals("fermeture")) {
+			
 			return new FermetureService();
+		
 		}
 		
 		return null;
