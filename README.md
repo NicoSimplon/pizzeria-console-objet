@@ -8,6 +8,13 @@ Cette application permet d'administrer les données d'une pizzeria.
 2. Ajouter une nouvelle pizza
 3. Mettre à jour une pizza
 4. Supprimer une pizza
-5. Initialiser la base de données
 99. Sortir
+```
+
+```
+Pour changer de système de gestion (DAO), vous pouvez commenter l'instance du dao active dans le fichier
+PizzeriaAdminConsoleApp et décommenter une autre instance.
+
+**Attention, pour utiliserle DAO PizzeriaBddDao qui utilise JDBC, vous devez auparavant créer la base de données.
+Vous trouverez un script de sauvegarde de la base de données dans le dossier "src/".**
 ```
