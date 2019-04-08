@@ -30,6 +30,14 @@ public class PizzaMemDao implements IPizzaDao {
 		this.tableauPizza = tableauPizza;
 	}
 
+	public List<Pizza> getTableauPizza() {
+		return tableauPizza;
+	}
+
+	public void setTableauPizza(List<Pizza> tableauPizza) {
+		this.tableauPizza = tableauPizza;
+	}
+	
 	@Override
 	public List<Pizza> findAllPizzas() {
 		return this.tableauPizza;
