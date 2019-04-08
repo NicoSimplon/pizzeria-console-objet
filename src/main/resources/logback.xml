@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
+	<!-- redirection des logs vers la sortir Console Standard -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%msg%n</pattern>
+		</encoder>
+	</appender>
 	<!-- redirection vers un fichier -->
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>exceptions.log</file>
@@ -22,10 +28,13 @@
 		</encoder>
 	</appender>
 	<!-- politique de log pour les classes du package dev.console -->
-	<logger name="fr.pizzeria.console" level="ERROR">
+	<logger name="fr.pizzeria.console" lavel="ERROR">
+	   <appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="fr.pizzeria" level="ERROR">
 		<appender-ref ref="FILE" />
 	</logger>
-	<logger name="org.hibernate" level="INFO">
+	<logger name="org.hibernate" level="INFO" additivity="false">
 		<appender-ref ref="JPA" />
 	</logger>
 </configuration>

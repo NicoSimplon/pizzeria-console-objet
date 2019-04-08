@@ -3,6 +3,9 @@ package fr.pizzeria.console;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.dao.PizzaBddDao;
 import fr.pizzeria.dao.PizzaJpaDao;
@@ -11,6 +14,8 @@ import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.menu.MenuFactory;
 
 public class PizzeriaAdminConsoleApp {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
 	// Instance unique du scanner
 	public static Scanner scan = new Scanner(System.in);
@@ -81,13 +86,12 @@ public class PizzeriaAdminConsoleApp {
 			} 
 			catch (StockageException|DataAccessException e) {
 				
-				System.out.println(e.getMessage());
-//				e.printStackTrace();
+				LOGGER.error(e.getMessage());
 
 			}
 			catch (Exception e) {
 				
-				e.printStackTrace();
+				LOGGER.error(e.getMessage());
 				
 			}
 			
