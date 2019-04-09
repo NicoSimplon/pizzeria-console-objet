@@ -23,10 +23,15 @@ public class SupprimerPizzaService extends MenuService {
 		System.out.println("Veuillez choisir le code de la pizza à supprimer :");
 		String codePizz = scanner.nextLine();
 
-		dao.deletePizza(codePizz);
-
+		
 		if (codePizz.length() < 3) {
 			throw new DeletePizzaException("Le code doit contenir au moins 3 caractères");
+		}
+		
+		if (dao.pizzaExists(codePizz)) {
+			dao.deletePizza(codePizz);
+		} else {
+			throw new DeletePizzaException("Aucune pizza existante n'a le code renseigné");
 		}
 
 	}
