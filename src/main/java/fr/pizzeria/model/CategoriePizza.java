@@ -10,6 +10,7 @@ public enum CategoriePizza {
 		this.type = type;
 	}
 
+	@Override
 	public String toString() {
 		return this.type;
 	}
@@ -18,7 +19,7 @@ public enum CategoriePizza {
 		return type;
 	}
 
-	public void setType(String type) {
+	void setType(String type) {
 		this.type = type;
 	}
 

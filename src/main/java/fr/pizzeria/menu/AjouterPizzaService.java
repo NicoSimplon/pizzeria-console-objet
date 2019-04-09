@@ -6,7 +6,6 @@ import java.util.Scanner;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.StockageException;
-import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -33,12 +32,13 @@ public class AjouterPizzaService extends MenuService {
 		String type = scanner.nextLine();
 		CategoriePizza categorie = null;
 		CategoriePizza[] cate = CategoriePizza.values();
-		boolean cateBool = false;
 
+		String searchCategorie = "inconnu";
+		
 		for (CategoriePizza s : cate) {
 			if (s.getType().equals(type)) {
-				cateBool = true;
 				categorie = s;
+				searchCategorie = "connu";
 			}
 		}
 
@@ -48,8 +48,8 @@ public class AjouterPizzaService extends MenuService {
 			throw new SavePizzaException("Le code doit contenir au moins 3 caractères");
 		} else if (nom.length() < 5) {
 			throw new SavePizzaException("Le nom doit contenir au moins 5 caractères");
-		} else if (cateBool == false) {
-			throw new UpdatePizzaException("Vous avez rentré un mauvais nom de catégorie");
+		} else if (searchCategorie.equals("inconnu")) {
+			throw new SavePizzaException("Vous avez rentré un mauvais nom de catégorie");
 		}
 
 		dao.saveNewPizza(new Pizza(code, nom, convertPrix, categorie));

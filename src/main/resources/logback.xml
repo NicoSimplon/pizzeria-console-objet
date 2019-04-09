@@ -6,6 +6,11 @@
 			<pattern>%msg%n</pattern>
 		</encoder>
 	</appender>
+	<appender name="SCANNER" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%msg%n</pattern>
+        </encoder>
+    </appender>
 	<!-- redirection vers un fichier -->
 	<appender name="FILE" class="ch.qos.logback.core.FileAppender">
 		<file>exceptions.log</file>
@@ -28,7 +33,7 @@
 		</encoder>
 	</appender>
 	<!-- politique de log pour les classes du package dev.console -->
-	<logger name="fr.pizzeria" level="ERROR" additivity="false">
+	<logger name="fr.pizzeria.console" level="ERROR" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 	<logger name="fr.pizzeria.dao" level="INFO" additivity="false">
@@ -36,6 +41,9 @@
     </logger>
     <logger name="fr.pizzeria.menu" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
+    </logger>
+    <logger name="fr.pizzeria.console" level="INFO" additivity="false">
+        <appender-ref ref="SCANNER" />
     </logger>
 	<logger name="fr.pizzeria" level="ERROR">
 		<appender-ref ref="FILE" />

@@ -1,7 +1,13 @@
 package fr.pizzeria.dao;
 
-import java.io.*;
-import java.util.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 
 import fr.pizzeria.exception.TechnicalException;
 
@@ -23,7 +29,7 @@ public class GestionFichier {
 				
 			this.fichier = new File(path);
 				
-			if (fichier.exists () == false) {
+			if (fichier.exists()) {
 				fichier.createNewFile ();					
 			}
 			
