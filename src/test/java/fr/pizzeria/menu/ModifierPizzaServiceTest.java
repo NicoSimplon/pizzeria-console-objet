@@ -18,30 +18,31 @@ import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
 public class ModifierPizzaServiceTest {
-	
+
 	private static final Logger LOG = LoggerFactory.getLogger(ModifierPizzaService.class);
 
-	/** Création d'une "Rule" qui va permettre
-	* de substituer le System.in utilisé par le Scanner
-	* par un mock: systemInMock */
+	/**
+	 * Création d'une "Rule" qui va permettre de substituer le System.in utilisé
+	 * par le Scanner par un mock: systemInMock
+	 */
 	@Rule
 	public TextFromStandardInputStream systemInMock = emptyStandardInputStream();
-	
+
 	@Test
 	public void testexecuteUC() throws StockageException, SQLException {
-	
+
 		IPizzaDao dao = Mockito.mock(IPizzaDao.class);
-		
+
 		Pizza pizza = new Pizza(9, "CDA", "PizzaBidon", 12.0, CategoriePizza.VIANDE);
-				
+
 		Mockito.when(dao.pizzaExists("CDE")).thenReturn(true);
-		
+
 		LOG.info("Etant donné les informations renseignées par l'utilisateur");
 		systemInMock.provideLines("CDE", "CDA", "PizzaBidon", "12.0", "Viande");
-		
+
 		LOG.info("Etant donné une instance de ModifierPizzaService");
 		ModifierPizzaService service = new ModifierPizzaService();
-		
+
 		LOG.info("Lorsque la méthode executeUC est exécutée");
 		service.executeUC(new Scanner(System.in), dao);
 
@@ -49,5 +50,5 @@ public class ModifierPizzaServiceTest {
 		Mockito.verify(dao).updatePizza("CDE", pizza);
 
 	}
-	
+
 }
