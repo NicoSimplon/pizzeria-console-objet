@@ -34,11 +34,11 @@ public class ModifierPizzaService extends MenuService {
 		String type = scanner.nextLine();
 		CategoriePizza newCategorie = null;
 		CategoriePizza[] cate = CategoriePizza.values();
-		boolean cateBool = false;
+		String searchCategorie = "inconnu";
 
 		for (CategoriePizza s : cate) {
 			if (s.getType().equals(type)) {
-				cateBool = true;
+				searchCategorie = "connu";
 				newCategorie = s;
 			}
 		}
@@ -51,7 +51,7 @@ public class ModifierPizzaService extends MenuService {
 			throw new UpdatePizzaException("Le code doit contenir au moins 3 caractères");
 		} else if (newNomPizz.length() < 5) {
 			throw new UpdatePizzaException("Le nom doit contenir au moins 5 caractères");
-		} else if (cateBool == false) {
+		} else if (searchCategorie.equals("inconnu")) {
 			throw new UpdatePizzaException("Vous avez rentré un mauvais nom de catégorie");
 		}
 

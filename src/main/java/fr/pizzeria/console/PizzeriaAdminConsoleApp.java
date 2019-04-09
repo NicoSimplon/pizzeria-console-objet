@@ -18,13 +18,13 @@ public class PizzeriaAdminConsoleApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 	
 	// Instance unique du scanner
-	public static Scanner scan = new Scanner(System.in);
+	private static Scanner scan = new Scanner(System.in);
 	
 	// Instance du DAO
-//	 public static IPizzaDao dao = new PizzaMemDao();
-//	public static IPizzaDao dao = new PizzaBddDao();
-	public static IPizzaDao dao = new PizzaJpaDao();
-//	public static IPizzaDao dao = new PizzaFileDao();
+//	 private static IPizzaDao dao = new PizzaMemDao();
+//	private static IPizzaDao dao = new PizzaBddDao();
+	private static IPizzaDao dao = new PizzaJpaDao();
+//	private static IPizzaDao dao = new PizzaFileDao();
 
 	// Affichage du menu
 	public static void pizzaMenu() {

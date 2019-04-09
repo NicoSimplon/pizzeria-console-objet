@@ -113,9 +113,7 @@ public class Pizza {
 					else
 						retour += f.get(this);
 
-				} catch (IllegalArgumentException e) {
-					e.printStackTrace();
-				} catch (IllegalAccessException e) {
+				} catch (IllegalArgumentException | IllegalAccessException e) {
 					e.printStackTrace();
 				}
 			}
@@ -152,15 +150,18 @@ public class Pizza {
 		if (code == null) {
 			if (other.code != null)
 				return false;
-		} else if (!code.equals(other.code))
+		} else if (!code.equals(other.code)) {			
 			return false;
+		}
 		if (libelle == null) {
 			if (other.libelle != null)
 				return false;
-		} else if (!libelle.equals(other.libelle))
+		} else if (!libelle.equals(other.libelle)) {			
 			return false;
-		if (Double.doubleToLongBits(prix) != Double.doubleToLongBits(other.prix))
-			return false;
+		}
+		if (Double.doubleToLongBits(prix) != Double.doubleToLongBits(other.prix)) {
+			return false;			
+		}
 		return true;
 	}
 

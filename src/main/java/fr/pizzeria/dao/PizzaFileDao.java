@@ -121,7 +121,7 @@ public class PizzaFileDao implements IPizzaDao {
 	 */
 	public void ecriture() {
 
-		List<String> listString = new ArrayList<String>();
+		List<String> listString = new ArrayList<>();
 
 		for (Pizza pizza : tableauPizza)
 				listString.add(pizza.toSave());
@@ -151,22 +151,19 @@ public class PizzaFileDao implements IPizzaDao {
 
 	}
 
-	/**
-	 * Utilisé uniquement avec PizzaBddDao
-	 */
+	
 	@Override
 	public void initialiserBdd() {
-		
-		
+		/*
+		 * Utilisé uniquement avec PizzaBddDao
+		 */
 	}
 
-	/**
-	 * Utilisé uniquement avec PizzaJpaDao
-	 */
 	@Override
 	public void destroyEmFactory() {
-		// TODO Auto-generated method stub
-		
+		/*
+		 * Utilisé uniquement avec PizzaJpaDao
+		 */
 	}
 
 }

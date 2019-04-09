@@ -29,8 +29,8 @@ public class GestionFichier {
 				
 			this.fichier = new File(path);
 				
-			if (fichier.exists()) {
-				fichier.createNewFile ();					
+			if (!fichier.exists()) {
+				fichier.createNewFile();					
 			}
 			
 		} catch (IOException e) {
@@ -45,7 +45,7 @@ public class GestionFichier {
 		try {
 			
 			String line = null;
-			List <String> records = new ArrayList <String> ();
+			List <String> records = new ArrayList<>();
 			this.lectureFichier = new BufferedReader (new FileReader (this.fichier));	
 			
 			while ((line = this.lectureFichier.readLine ()) != null) {

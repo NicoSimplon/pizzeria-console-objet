@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import fr.pizzeria.exception.DataAccessException;
@@ -164,13 +163,12 @@ public class PizzaJpaDao implements IPizzaDao {
 		return exist;
 	}
 
-	/**
-	 * Implémenté uniquement avec le PizzaBddDao
-	 */
+	
 	@Override
 	public void initialiserBdd() {
-		
-
+		/*
+		 * Implémenté uniquement avec le PizzaBddDao
+		 */
 	}
 
 }

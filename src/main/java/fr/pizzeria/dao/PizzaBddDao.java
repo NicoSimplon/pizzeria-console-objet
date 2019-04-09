@@ -1,15 +1,13 @@
 package fr.pizzeria.dao;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import java.sql.PreparedStatement;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import fr.pizzeria.exception.DataAccessException;
 import fr.pizzeria.model.CategoriePizza;
@@ -108,9 +106,7 @@ public class PizzaBddDao implements IPizzaDao {
 
 				CategoriePizza categoriePizza = CategoriePizza.valueOf(categorie.toUpperCase());
 
-				Pizza piz = new Pizza(id, code, libelle, prix, categoriePizza);
-
-				tabPizz.add(piz);
+				tabPizz.add(new Pizza(id, code, libelle, prix, categoriePizza));
 			}
 
 			rs.close();
@@ -250,11 +246,9 @@ public class PizzaBddDao implements IPizzaDao {
 
 			CategoriePizza categoriePizza = CategoriePizza.valueOf(categorie.toUpperCase());
 
-			Pizza piz = new Pizza(id, code, libelle, prix, categoriePizza);
-
 			rs.close();
 
-			return piz;
+			return new Pizza(id, code, libelle, prix, categoriePizza);
 
 		} 
 		catch (SQLException e) {
@@ -352,13 +346,12 @@ public class PizzaBddDao implements IPizzaDao {
 		
 	}
 
-	/**
-	 * Utilisé uniquement avec PizzaJpaDao
-	 */
+	
 	@Override
 	public void destroyEmFactory() {
-		// TODO Auto-generated method stub
-		
+		/*
+		 * Utilisé uniquement avec PizzaJpaDao
+		 */
 	}
 
 }

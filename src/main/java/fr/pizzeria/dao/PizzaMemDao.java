@@ -17,7 +17,7 @@ public class PizzaMemDao implements IPizzaDao {
 	private List<Pizza> tableauPizza;
 
 	public PizzaMemDao() {
-		List<Pizza> tableauPizza = new ArrayList<>();
+		List<Pizza> tableauDePizza = new ArrayList<>();
 		tableauPizza.add(new Pizza(0, "PEP", "Pépéroni", 12.50, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(1, "MAR", "Margherita", 14.00, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(2, "REIN", "La Reine", 11.50, CategoriePizza.VIANDE));
@@ -27,7 +27,7 @@ public class PizzaMemDao implements IPizzaDao {
 		tableauPizza.add(new Pizza(6, "ORI", "L'orientale", 13.50, CategoriePizza.VIANDE));
 		tableauPizza.add(new Pizza(7, "IND", "L'indienne", 14.00, CategoriePizza.VIANDE));
 		
-		this.tableauPizza = tableauPizza;
+		this.tableauPizza = tableauDePizza;
 	}
 
 	public List<Pizza> getTableauPizza() {
@@ -99,21 +99,19 @@ public class PizzaMemDao implements IPizzaDao {
 		return exist;
 	}
 
-	/**
-	 * Utilisé uniquement avec PizzaBddDao
-	 */
+
 	@Override
 	public void initialiserBdd() {
-		
+		/*
+		 * Utilisé uniquement avec PizzaBddDao
+		 */
 	}
 
-	/**
-	 * Utilisé uniquement avec PizzaJpaDao
-	 */
 	@Override
 	public void destroyEmFactory() {
-		
-		
+		/*
+		 * Utilisé uniquement avec PizzaJpaDao
+		 */
 	}
 
 }

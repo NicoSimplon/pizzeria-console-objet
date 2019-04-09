@@ -38,7 +38,7 @@ public class PizzeriaMemDaoTest {
 		List<Pizza> tab = dao.findAllPizzas();
 		
 		LOG.info("Alors la liste de pizzas contient au moins une pizza");
-		Assert.assertTrue(tab.size() > 0);
+		Assert.assertFalse(tab.isEmpty());
 	}
 	
 	/**
@@ -89,10 +89,10 @@ public class PizzeriaMemDaoTest {
 		Assert.assertTrue(pizza.getId() == 8);
 		
 		LOG.info("Alors le code a bien été modifié");
-		Assert.assertTrue(pizza.getCode() == "CDA");
+		Assert.assertTrue(pizza.getCode().equals("CDA"));
 		
 		LOG.info("Alors le libellé a bien été modifié");
-		Assert.assertTrue(pizza.getLibelle() == "Bidon");
+		Assert.assertTrue(pizza.getLibelle().equals("Bidon"));
 		
 		LOG.info("Alors le prix a bien été modifié");
 		Assert.assertTrue(pizza.getPrix() == 1.0);
