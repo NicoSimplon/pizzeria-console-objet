@@ -28,9 +28,12 @@
 		</encoder>
 	</appender>
 	<!-- politique de log pour les classes du package dev.console -->
-	<logger name="fr.pizzeria.console" lavel="ERROR">
+	<logger name="fr.pizzeria" level="ERROR" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
+	<logger name="fr.pizzeria.dao" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
 	<logger name="fr.pizzeria" level="ERROR">
 		<appender-ref ref="FILE" />
 	</logger>

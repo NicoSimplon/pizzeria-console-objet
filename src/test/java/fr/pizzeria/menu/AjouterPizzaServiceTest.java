@@ -9,9 +9,9 @@ import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.contrib.java.lang.system.TextFromStandardInputStream;
+import org.mockito.Mockito;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.dao.PizzaMemDao;
 import fr.pizzeria.exception.StockageException;
 
 public class AjouterPizzaServiceTest {
@@ -24,8 +24,9 @@ public class AjouterPizzaServiceTest {
 	
 	@Test
 	public void testexecuteUC() {
+		
+		IPizzaDao dao = Mockito.mock(IPizzaDao.class);
 	
-		IPizzaDao dao = new PizzaMemDao();
 		
 		AjouterPizzaService service = new AjouterPizzaService();
 		
