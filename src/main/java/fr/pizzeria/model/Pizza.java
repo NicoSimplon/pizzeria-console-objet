@@ -128,6 +128,7 @@ public class Pizza {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((categorie == null) ? 0 : categorie.hashCode());
 		result = prime * result + ((code == null) ? 0 : code.hashCode());
 		result = prime * result + id;
 		result = prime * result + ((libelle == null) ? 0 : libelle.hashCode());
@@ -146,12 +147,12 @@ public class Pizza {
 		if (getClass() != obj.getClass())
 			return false;
 		Pizza other = (Pizza) obj;
+		if (categorie != other.categorie)
+			return false;
 		if (code == null) {
 			if (other.code != null)
 				return false;
 		} else if (!code.equals(other.code))
-			return false;
-		if (id != other.id)
 			return false;
 		if (libelle == null) {
 			if (other.libelle != null)

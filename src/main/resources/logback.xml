@@ -34,6 +34,9 @@
 	<logger name="fr.pizzeria.dao" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
+    <logger name="fr.pizzeria.menu" level="INFO" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
 	<logger name="fr.pizzeria" level="ERROR">
 		<appender-ref ref="FILE" />
 	</logger>

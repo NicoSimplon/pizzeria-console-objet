@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import fr.pizzeria.dao.IPizzaDao;
-import fr.pizzeria.exception.DeletePizzaException;
 import fr.pizzeria.exception.StockageException;
 import fr.pizzeria.exception.UpdatePizzaException;
 import fr.pizzeria.model.CategoriePizza;
@@ -59,7 +58,7 @@ public class ModifierPizzaService extends MenuService {
 		if (dao.pizzaExists(codePizz)) {
 			dao.updatePizza(codePizz, nvPizza);
 		} else {
-			throw new DeletePizzaException("Aucune pizza existante n'a le code renseigné");
+			throw new UpdatePizzaException("Aucune pizza existante n'a le code renseigné");
 		}
 
 	}
