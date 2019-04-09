@@ -5,6 +5,7 @@
 	<persistence-unit name="pizzeria-console-objet" transaction-type="RESOURCE_LOCAL">
 		<!-- Choix de l'implémentation JPA (ici Hibernate) -->
 		<provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+		<class>fr.pizzeria.model.Pizza</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/bdd_pizzeria" />
 			<property name="javax.persistence.jdbc.user" value="root" />
