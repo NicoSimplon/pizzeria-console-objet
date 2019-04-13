@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.exception.DataAccessException;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
@@ -28,6 +32,8 @@ public class PizzaBddDao implements IPizzaDao {
 	private String password;
 	Connection connexionBDD = null;
 	PreparedStatement st = null;
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 
 	/**
 	 * Constructeur avec initialisation des variables de connexion à la BDD
@@ -56,7 +62,7 @@ public class PizzaBddDao implements IPizzaDao {
 
 		} catch (ClassNotFoundException e) {
 
-			e.printStackTrace();
+			LOGGER.error(e.getMessage());
 
 		} catch (SQLException e) {
 
@@ -229,26 +235,33 @@ public class PizzaBddDao implements IPizzaDao {
 	@Override
 	public Pizza findPizzaByCode(String codePizza) {
 
+		Pizza pizza = null;
+		
 		try {
 
 			openConnexion();
 
 			st = connexionBDD.prepareStatement("SELECT * FROM pizzas WHERE code = ?;");
-
 			st.setString(1, codePizza);
 			ResultSet rs = st.executeQuery();
-
-			int id = rs.getInt("id");
-			String code = rs.getString("code");
-			String libelle = rs.getString("libelle");
-			double prix = rs.getDouble("prix");
-			String categorie = rs.getString("categorie");
-
-			CategoriePizza categoriePizza = CategoriePizza.valueOf(categorie.toUpperCase());
-
+			
+			while(rs.next()) {
+				int id = rs.getInt("id");
+				String code = rs.getString("code");
+				String libelle = rs.getString("libelle");
+				double prix = rs.getDouble("prix");
+				String categorie = rs.getString("categorie");
+				CategoriePizza categoriePizza = CategoriePizza.valueOf(categorie.toUpperCase());
+				
+				pizza = new Pizza(id, code, libelle, prix, categoriePizza);
+			}
+			
 			rs.close();
+			
 
-			return new Pizza(id, code, libelle, prix, categoriePizza);
+
+
+			return pizza;
 
 		} 
 		catch (SQLException e) {
@@ -269,36 +282,15 @@ public class PizzaBddDao implements IPizzaDao {
 	@Override
 	public boolean pizzaExists(String codePizza) {
 
-		try {
+		boolean result = false;
 
-			openConnexion();
+		Pizza pizza = this.findPizzaByCode(codePizza);
 
-			st = connexionBDD.prepareStatement("SELECT * FROM pizzas WHERE code = ?;");
-
-			st.setString(1, codePizza);
-			ResultSet rs = st.executeQuery();
-
-			rs.close();
-
-			if (rs.getFetchSize() > 0) {
-
-				return true;
-
-			}
-
-		} 
-		catch (SQLException e) {
-
-			throw new DataAccessException ("Une erreur est survenue durant la recherche de votre pizza", e);
-
-		}
-		finally {
-			
-			closeConnexion();
-			
+		if (pizza.getCode().equals(codePizza)) {
+			result = true;				
 		}
 
-		return false;
+		return result;
 	}
 	
 	public void initialiserBdd() {

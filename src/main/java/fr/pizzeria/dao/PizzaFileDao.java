@@ -3,6 +3,10 @@ package fr.pizzeria.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.model.CategoriePizza;
 import fr.pizzeria.model.Pizza;
 
@@ -16,6 +20,7 @@ public class PizzaFileDao implements IPizzaDao {
 
 	private List<Pizza> tableauPizza;
 	private GestionFichier gestionFichier;
+	private static final Logger LOGGER = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 
 	public PizzaFileDao() {
 		// Initialisation de l'ArrayList

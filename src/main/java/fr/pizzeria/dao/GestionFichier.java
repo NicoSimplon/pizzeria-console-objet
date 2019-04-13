@@ -30,7 +30,7 @@ public class GestionFichier {
 			this.fichier = new File(path);
 				
 			if (!fichier.exists()) {
-				fichier.createNewFile();					
+				fichier.createNewFile();
 			}
 			
 		} catch (IOException e) {

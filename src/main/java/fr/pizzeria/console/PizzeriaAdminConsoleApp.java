@@ -21,10 +21,10 @@ public class PizzeriaAdminConsoleApp {
 	private static Scanner scan = new Scanner(System.in);
 
 	// Instance du DAO
-	// private static IPizzaDao dao = new PizzaMemDao();
-	// private static IPizzaDao dao = new PizzaBddDao();
+//	 private static IPizzaDao dao = new PizzaMemDao();
+//	 private static IPizzaDao dao = new PizzaBddDao();
 	private static IPizzaDao dao = new PizzaJpaDao();
-	// private static IPizzaDao dao = new PizzaFileDao();
+//	 private static IPizzaDao dao = new PizzaFileDao();
 
 	// Affichage du menu
 	public static void pizzaMenu() {
