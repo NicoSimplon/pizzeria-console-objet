@@ -35,7 +35,7 @@
     <logger name="fr.pizzeria.console" level="INFO" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
-	<logger name="fr.pizzeria" level="ERROR">
+	<logger name="fr.pizzeria.console" level="INFO">
 		<appender-ref ref="FILE" />
 	</logger>
 	<logger name="org.hibernate" level="INFO" additivity="false">
