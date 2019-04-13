@@ -15,6 +15,6 @@ Cette application permet d'administrer les données d'une pizzeria.
 Pour changer de système de gestion (DAO), vous pouvez commenter l'instance du dao active dans le fichier
 PizzeriaAdminConsoleApp et décommenter une autre instance.
 
-#### Attention, pour utiliser le DAO PizzeriaBddDao qui utilise JDBC, vous devez auparavant créer la base de données.
-Vous trouverez un script de sauvegarde de la base de données dans le dossier "src/". ####
+Vous trouverez un script de sauvegarde de la base de données dans le dossier "src/" qui vous permettra de la recréer en local.
+Toutefois l'application fonctionne sans puisqu'elle est connectée par défaut à une base de données sur un serveur distant.
 
