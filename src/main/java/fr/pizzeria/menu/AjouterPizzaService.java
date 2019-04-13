@@ -3,6 +3,10 @@ package fr.pizzeria.menu;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import fr.pizzeria.console.PizzeriaAdminConsoleApp;
 import fr.pizzeria.dao.IPizzaDao;
 import fr.pizzeria.exception.SavePizzaException;
 import fr.pizzeria.exception.StockageException;
@@ -16,19 +20,21 @@ import fr.pizzeria.model.Pizza;
  *
  */
 public class AjouterPizzaService extends MenuService {
+	
+	private static final Logger LOGGER = LoggerFactory.getLogger(PizzeriaAdminConsoleApp.class);
 
 	@Override
 	public void executeUC(Scanner scanner, IPizzaDao dao) throws StockageException, SQLException {
 
-		System.out.println("Ajout d’une nouvelle pizza");
-		System.out.println("Veuillez saisir le code :");
+		LOGGER.info("Ajout d’une nouvelle pizza");
+		LOGGER.info("Veuillez saisir le code :");
 		String code = scanner.nextLine();
-		System.out.println("Veuillez saisir le nom (sans espace) :");
+		LOGGER.info("Veuillez saisir le nom (sans espace) :");
 		String nom = scanner.nextLine();
-		System.out.println("Veuillez saisir le prix :");
+		LOGGER.info("Veuillez saisir le prix :");
 		String prix = scanner.nextLine();
 		double convertPrix = Double.parseDouble(prix);
-		System.out.println("Veuillez choisir la catégorie (Viande, Poisson ou Sans Viande) :");
+		LOGGER.info("Veuillez choisir la catégorie (Viande, Poisson ou Sans Viande) :");
 		String type = scanner.nextLine();
 		CategoriePizza categorie = null;
 		CategoriePizza[] cate = CategoriePizza.values();
@@ -53,6 +59,7 @@ public class AjouterPizzaService extends MenuService {
 		}
 
 		dao.saveNewPizza(new Pizza(code, nom, convertPrix, categorie));
+		LOGGER.info("La nouvelle pizza a été créée avec succès");
 
 	}
 

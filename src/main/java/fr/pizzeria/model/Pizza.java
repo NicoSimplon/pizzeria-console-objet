@@ -92,9 +92,6 @@ public class Pizza {
 	@Override
 	public String toString() {
 
-		// return this.code + "->" + this.libelle + " (" + this.prix + " €)" + "
-		// catégorie: " + this.categorie;
-
 		Class<? extends Pizza> classe = getClass();
 		Field[] fields = classe.getDeclaredFields();
 		String retour = "";

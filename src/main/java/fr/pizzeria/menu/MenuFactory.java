@@ -8,34 +8,36 @@ package fr.pizzeria.menu;
  */
 public class MenuFactory {
 
+	private MenuService ms;
+	
 	public MenuService create(String typeservice) {
 		
 		if (typeservice.equals("lister")) {
 			
-			return new ListerPizzasService();
+			ms = new ListerPizzasService();
 			
 		} else if (typeservice.equals("ajouter")) {
 			
-			return new AjouterPizzaService();
+			ms = new AjouterPizzaService();
 			
 		} else if (typeservice.equals("modifier")) {
 			
-			return new ModifierPizzaService();
+			ms = new ModifierPizzaService();
 			
 		} else if (typeservice.equals("supprimer")) {
 			
-			return new SupprimerPizzaService();
+			ms = new SupprimerPizzaService();
 			
 		} else if (typeservice.equals("initialiser")) {
 			
-			return new InitialiserPizzaService();
+			ms = new InitialiserPizzaService();
 			
 		} else if (typeservice.equals("fermeture")) {
 			
-			return new FermetureService();
+			ms = new FermetureService();
 		
 		}
 		
-		return null;
+		return ms;
 	}
 }

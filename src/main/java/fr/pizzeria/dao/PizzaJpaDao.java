@@ -20,15 +20,11 @@ import fr.pizzeria.model.Pizza;
  */
 public class PizzaJpaDao implements IPizzaDao {
 
-	private EntityManagerFactory emFactory;
-	
-	public PizzaJpaDao() {
-		this.emFactory = Persistence.createEntityManagerFactory("pizzeria-console-objet");
-	}
+	private static EntityManagerFactory emFactory= Persistence.createEntityManagerFactory("pizzeria-console-objet");
 
 	private EntityManager openConnexion() {
 		
-		return this.emFactory.createEntityManager();
+		return emFactory.createEntityManager();
 
 	}
 
@@ -40,7 +36,7 @@ public class PizzaJpaDao implements IPizzaDao {
 	
 	public void destroyEmFactory(){
 		
-		this.emFactory.close();
+		emFactory.close();
 		
 	}
 
