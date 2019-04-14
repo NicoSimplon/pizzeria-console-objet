@@ -1,6 +1,7 @@
 package fr.pizzeria.model;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,6 +10,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 import fr.pizzeria.utils.ToString;
@@ -45,6 +47,12 @@ public class Pizza {
 	@ToString(separateur = " - ")
 	@Enumerated(EnumType.STRING)
 	private CategoriePizza categorie;
+	
+	@Column(name="url_image")
+	private String urlImg;
+	
+	@ManyToMany(mappedBy = "pizzas")
+	private List<Commande> commandes;
 
 	/**
 	 * Constructeur par défaut
@@ -252,6 +260,34 @@ public class Pizza {
 
 	public void setCategorie(CategoriePizza categoriePizza) {
 		this.categorie = categoriePizza;
+	}
+
+	/**
+	 * @return the urlImg
+	 */
+	public String getUrlImg() {
+		return urlImg;
+	}
+
+	/**
+	 * @param urlImg the urlImg to set
+	 */
+	public void setUrlImg(String urlImg) {
+		this.urlImg = urlImg;
+	}
+
+	/**
+	 * @return the commandes
+	 */
+	public List<Commande> getCommandes() {
+		return commandes;
+	}
+
+	/**
+	 * @param commandes the commandes to set
+	 */
+	public void setCommandes(List<Commande> commandes) {
+		this.commandes = commandes;
 	}
 
 }

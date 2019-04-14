@@ -10,16 +10,17 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 /**
- * Entité représentant un client de la pizzéria
+ * Entité représentant un livreur de la pizzéria
  * 
  * @author Nicolas
  *
  */
 @Entity
-@Table(name="clients")
-public class Client {
-
+@Table(name="livreurs")
+public class Livreur {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
@@ -31,42 +32,8 @@ public class Client {
 	@Column(name="prenom")
 	private String prenom;
 	
-	@Column(name="email")
-	private String email;
-	
-	@Column(name="password")
-	private String motDePasse;
-
-	@OneToMany(mappedBy = "client")
+	@OneToMany(mappedBy = "livreur")
 	private List<Commande> commandes;
-	
-	/**
-	 * @return the email
-	 */
-	public String getEmail() {
-		return email;
-	}
-
-	/**
-	 * @param email the email to set
-	 */
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
-	/**
-	 * @return the motDePasse
-	 */
-	public String getMotDePasse() {
-		return motDePasse;
-	}
-
-	/**
-	 * @param motDePasse the motDePasse to set
-	 */
-	public void setMotDePasse(String motDePasse) {
-		this.motDePasse = motDePasse;
-	}
 
 	/**
 	 * @return the id
@@ -123,5 +90,5 @@ public class Client {
 	public void setCommandes(List<Commande> commandes) {
 		this.commandes = commandes;
 	}
-	
+
 }
