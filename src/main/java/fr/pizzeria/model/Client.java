@@ -35,7 +35,7 @@ public class Client {
 	private String email;
 	
 	@Column(name="password")
-	private String motDePasse;
+	private byte[] motDePasse;
 
 	@OneToMany(mappedBy = "client")
 	private List<Commande> commandes;
@@ -57,14 +57,14 @@ public class Client {
 	/**
 	 * @return the motDePasse
 	 */
-	public String getMotDePasse() {
+	public byte[] getMotDePasse() {
 		return motDePasse;
 	}
 
 	/**
 	 * @param motDePasse the motDePasse to set
 	 */
-	public void setMotDePasse(String motDePasse) {
+	public void setMotDePasse(byte[] motDePasse) {
 		this.motDePasse = motDePasse;
 	}
 
